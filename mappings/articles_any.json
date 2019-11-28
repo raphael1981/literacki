@@ -1,0 +1,32 @@
+{
+    "aid": {
+        "type": "integer"
+    },
+    "artType": {
+        "type": "text"
+    },
+    "title": {
+        "type": "keyword"
+    },
+    "image": {
+        "type": "keyword"
+    },
+    "smallDesc": {
+        "type": "keyword"
+    },
+    "longDesc": {
+        "type": "keyword"
+    },
+    "content": {
+        "type": "text"
+    },
+    "metaDescription": {
+        "type": "text"
+    },
+    "metaKeywords": {
+        "type": "text"
+    },
+    "date": {
+        "type": "date"
+    }
+}

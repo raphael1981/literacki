@@ -1,0 +1,34 @@
+<nav class="menu">
+  <div class="container-menu">
+    <div class="row">
+      <div class="col-left-menu" [innerHtml]="menu[0]">
+      </div>
+      <div class="col-center-logo">
+        <h1><a [href]="apiUrl+'/'"><img class="img-fluid" [src]="apiUrl+'/img/logo-shadow.png'"></a></h1>
+      </div>
+      <div class="col-right-menu" [innerHtml]="menu[1]">
+      </div>
+    </div>
+  </div>
+  <div class="search-icon-link"><a [href]="apiUrl+'/wyszukiwanie'"><img [src]="apiUrl+'/img/search-icon.svg'"
+        alt=""></a></div>
+</nav>
+<header class="search-banner">
+  <div class="image-bg"></div>
+  <div class="title-txt" *ngIf="catalog">
+    <h2>Wyszukiwanie - {{catalog.name}}</h2>
+  </div>
+  <div class="title-txt" *ngIf="!catalog">
+    <h2>Wyszukiwanie</h2>
+  </div>
+  <div class="shadow-bg">
+
+  </div>
+</header>
+<nav class="submenu">
+  <div class="container">
+    <div class="row" [innerHtml]="menu[2]">
+
+    </div>
+  </div>
+</nav>

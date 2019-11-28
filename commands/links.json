@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Strona główna",
+        "alias": "strona-glowna",
+        "path": "",
+        "dataType": "home",
+        "externalLink": null,
+        "customView": null,
+        "linkedMenus": "",
+        "metaTitle": "",
+        "metaDesc": "",
+        "metaKeywords": "",
+        "ordering": 1,
+        "params": "",
+        "status": 1,
+        "linkId": null
+    }
+]

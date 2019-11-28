@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Rozróby u Kuby",
+        "alias": "rozroby-u-kuby",
+        "path": "rozroby-u-kuby",
+        "categoryViewType": "program",
+        "sectionId": 2
+    },
+    {
+        "name": "W powiększeniu",
+        "alias": "w-powiekszeniu",
+        "path": "w-powiekszeniu",
+        "categoryViewType": "program",
+        "sectionId": 2
+    },
+    {
+        "name": "Wywiad miesiąca",
+        "alias": "wywiad-miesiaca",
+        "path": "wywiad-miesiaca",
+        "categoryViewType": "program",
+        "sectionId": 2
+    }
+]

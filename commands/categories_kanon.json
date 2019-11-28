@@ -1,0 +1,61 @@
+[
+    {
+        "name": "Literatura polska 1939-2019",
+        "alias": "literatura-polska-1939-2019",
+        "path": "literatura-polska-1939-2019",
+        "categoryViewType": "kanon_articles",
+        "sectionId": 3
+    },
+    {
+        "name": "Historia literatury polskiej 1939-2019",
+        "alias": "historia-literatury-polskiej-1939-2019",
+        "path": "literatura-polska-1939-2019/historia-literatury-polskiej-1939-2019",
+        "categoryViewType": "kanon_articles",
+        "sectionId": 3,
+        "categoryId": 7
+    },
+    {
+        "name": "Etos literatury polskiej",
+        "alias": "etos-literatury-polskiej",
+        "path": "literatura-polska-1939-2019/etos-literatury-polskiej",
+        "categoryViewType": "kanon_articles",
+        "sectionId": 3,
+        "categoryId": 7
+    },
+    {
+        "name": "Historia Polski 1939-2019",
+        "alias": "historia-polski-1939-2019",
+        "path": "literatura-polska-1939-2019/historia-polski-1939-2019",
+        "categoryViewType": "kanon_articles",
+        "sectionId": 3,
+        "categoryId": 7
+    },
+    {
+        "name": "Teatr polski 1939-2019",
+        "alias": "teatr-polski-1939-2019",
+        "path": "teatr-polski-1939-2019",
+        "categoryViewType": "kanon_articles",
+        "sectionId": 3
+    },
+    {
+        "name": "Film polski 1939-2019",
+        "alias": "film-polski-1939-2019",
+        "path": "film-polski-1939-2019",
+        "categoryViewType": "kanon_articles",
+        "sectionId": 3
+    },
+    {
+        "name": "Europejskie Dziedzictwo",
+        "alias": "europejskie-dziedzictwo",
+        "path": "europejskie-dziedzictwo",
+        "categoryViewType": "kanon_articles",
+        "sectionId": 3
+    },
+    {
+        "name": "Edukacja Europejczyka",
+        "alias": "edukacja-europejczyka",
+        "path": "edukacja-europejczyka",
+        "categoryViewType": "kanon_articles",
+        "sectionId": 3
+    }
+]

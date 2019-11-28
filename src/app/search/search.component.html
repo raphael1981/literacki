@@ -1,0 +1,44 @@
+<app-header [catalog]="viewCatalog" [menu]="menu"></app-header>
+<div class="container-search-columns">
+    <div class="row">
+        <div class="col-left-search">
+            <section class="search-index">
+                <div class="container-sr-el">
+                    <div class="row">
+                        <div class="col-search">
+                            <!-- <pagination [current]="searchParams.page" [total]="indexResponse.hits.total.value"
+                                    (emitChange)="changePag($event)"></pagination> -->
+                            <!-- <div [perfectScrollbar]="{}" class="scroll-area-filters"> -->
+                            <div class="col-f-c">
+                                <filters [criteria]="criteria" [searchParams]="searchParams"
+                                    [currentCatalog]="currentCatalog" [currentEventType]="currentEventType"
+                                    [currentOrdering]="currentOrdering" [isCatalogSearch]="isCatalogSearch"
+                                    [isTypeSearch]="isTypeSearch" [viewCatalog]="viewCatalog">
+                                </filters>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-right-search">
+            <section class="search-index-result">
+                <div class="container-sr-el">
+                    <div class="row">
+                        <div class="col-results">
+                            <event-row *ngFor="let item of indexResponse.hits.hits"
+                                (emitOpenPrice)="openPricePopup($event)" [eventElement]="item._source"></event-row>
+                        </div>
+
+                        <pagination [current]="searchParams.page" [total]="indexResponse.hits.total.value"
+                            (emitChange)="changePag($event)"></pagination>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<ng-template #popUp></ng-template>
+<app-footer></app-footer>

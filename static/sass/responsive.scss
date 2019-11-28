@@ -1,0 +1,45 @@
+
+@mixin cols($columns: 12, $grid-columns: 12,$offset: 0){
+
+
+  float:left;
+  $procent-column: (1/$grid-columns)*$columns;
+  $offset-column: (1/$grid-columns)*$offset;
+  width: percentage($procent-column);
+  margin-left: percentage($offset-column);
+
+}
+
+@mixin cols-margin-right($columns: 12, $grid-columns: 12,$offset: 0){
+
+
+  float:left;
+  $procent-column: (1/$grid-columns)*$columns;
+  $offset-column: (1/$grid-columns)*$offset;
+  width: percentage($procent-column);
+  margin-right: percentage($offset-column);
+
+}
+
+@mixin cols-float-none($columns: 12, $grid-columns: 12,$offset: 0){
+
+
+  $procent-column: (1/$grid-columns)*$columns;
+  $offset-column: (1/$grid-columns)*$offset;
+  width: percentage($procent-column);
+  margin-left: percentage($offset-column);
+
+}
+
+
+@mixin cols-float-right($columns: 12, $grid-columns: 12,$offset: 0){
+
+
+  float:right;
+  $procent-column: (1/$grid-columns)*$columns;
+  $offset-column: (1/$grid-columns)*$offset;
+  width: percentage($procent-column);
+  margin-right: percentage($offset-column);
+
+}
+

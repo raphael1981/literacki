@@ -1,0 +1,45 @@
+@import '../../../assets/colors.less';
+
+.col-pagination {
+    width: 100%;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    background-color: #FFF;
+    height: 2.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // border-top: 2px solid @filtersGray;
+
+    ul.pagination-list {
+        text-align: center;
+        width: 100%;
+        padding-left: 0;
+
+        li {
+            display: inline-block;
+            margin: 4px 4px 4px 4px;
+
+            a {
+                border: 2px solid @filtersGray;
+                display: table;
+                height: 1.8rem;
+                width: 1.8rem;
+                padding-top: 0.42rem;
+                background-color: #FFF;
+                color: @filtersGray;
+                font-size: 0.8em;
+                text-decoration: none;
+                border-radius: 10px;
+            }
+        }
+
+        li.active {
+            a {
+                background-color: @filtersGray;
+                color: #FFF;
+            }
+        }
+    }
+}

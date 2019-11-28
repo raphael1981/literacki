@@ -1,0 +1,1 @@
+module.exports = { articlesLimit: 10, eventsLimit: 5, indexLimit: 20 }

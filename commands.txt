@@ -1,0 +1,14 @@
+node c.js sync-orm
+node c.js create-sections
+node c.js create-categories
+node c.js create-links
+node c.js create-menus
+node c.js create-authors
+node c.js create-media-category
+node c.js create-newspapers
+node c.js create-episodes
+node c.js create-articles
+node c.js create-opus
+
+
+node ./commands/c.js sync-orm && node ./commands/c.js create-sections && node ./commands/c.js create-categories && node ./commands/c.js create-links && node ./commands/c.js create-menus && node ./commands/c.js create-authors && node ./commands/c.js create-media-category && node ./commands/c.js create-newspapers && node ./commands/c.js create-episodes && node ./commands/c.js create-articles && node ./commands/c.js create-opus

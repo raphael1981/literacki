@@ -1,0 +1,35 @@
+<div class="overshadow" (click)="closePopUp()">
+
+</div>
+
+<div class="edit-area">
+
+
+  <div class="close-btn" (click)="closePopUp()">x</div>
+
+  <div class="scroll-inside">
+
+    <div class="row-cnt">
+      <div class="col-cnt">
+        <div class="row-table header"
+          [ngStyle]="{'grid-template-columns': 'repeat('+eventElement.priceConfig.length+','+eventElement.priceConfig.length+'fr)'}">
+          <div class="table-col" *ngFor="let ft of eventElement.priceConfig">
+            {{ft.from}} - {{ft.to}} <span class="people-suffix">osób</span>
+          </div>
+
+        </div>
+
+
+        <div class="row-table body"
+          [ngStyle]="{'grid-template-columns': 'repeat('+eventElement.priceConfig.length+','+eventElement.priceConfig.length+'fr)'}">
+          <div class="table-col" *ngFor="let p of eventElement.priceConfig">
+            <span class="price-data">{{p.price|priceView}}</span>&nbsp;<span class="price-suffix">zł/os</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

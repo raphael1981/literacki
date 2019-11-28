@@ -1,0 +1,97 @@
+extends ../layouts/layout.pug
+
+block header
+    header.catalog-name(class='event-t-'+link.eventsType)
+        .image-bg
+        .title-txt
+            h2 #{catalog.name}
+            h3 #{link.title}
+        .shadow-bg
+    include ../partials/submenu.pug    
+    
+
+block content
+    section.events-filters
+        .container
+            .row
+                .col-filters(class="color-"+link.eventsType)
+                    .label-filters filtruj:
+                    .beam-filters
+                        a(href=path+"?all" class=(all)?"active":"") wszystkie 
+                        a(href=path class=(all)?"":"active") dostępne
+    .double-container
+        .row
+            .col-left-double                      
+                section.events-organize
+                    .container
+                        .row
+                            .col-stock
+                                each ev in events
+                                    +date_avl_class_string(ev._source.startAt,moment,ev._source.eventSezonType)
+                                        //- .col-title
+                                        //-         h2.event-name-top  #{ev.name}
+                                        .event-top
+                                            .image-col 
+                                                img(src=ev._source.image class="img-fluid")
+                                            .data-col
+                                                .event-content
+                                                    h2.event-name  #{ev._source.name}
+                                                    .date-area
+                                                        each day in ev._source.days
+                                                            span.days-count #{day.daysNumber} dni
+                                                        +date_area_string(ev._source.startAt,ev._source.endAt,moment)
+                                                    .info-no-avl
+                                                        span.event-end oferta niedostępna
+                                                    if ev._source.status=='noavl'
+                                                        .info-full-persons
+                                                            span.event-full aktulanie brak miejsc  
+                                                    .desc #{ev._source.smallDesc}
+                                                    .region-row
+                                                        .region-label
+                                                            | Region:
+                                                        .regions
+                                                            each r in ev._source.regions
+                                                                span.region-badge #{r.name}
+
+                                                    .region-row
+                                                        .region-label
+                                                            | Miasta:
+                                                        .regions
+                                                            each r in ev._source.cities
+                                                                span.region-badge #{r.name}
+
+                                                    .region-row
+                                                        .region-label
+                                                            | Atrakcje:
+                                                        .regions
+                                                            each r in ev._source.attractions
+                                                                span.region-badge #{r.name}
+
+                                                    .region-row
+                                                        .region-label
+                                                            | Tematyka:
+                                                        .regions
+                                                            each r in ev._source.themes
+                                                                span.region-badge #{r.name}
+                                                    
+                                                    .ages-row
+                                                        .ages-label
+                                                            | Wiek:
+                                                        .ages
+                                                            each a in ev._source.ages
+                                                                span.age-badge #{a.from} - #{a.to}
+                                                .price-data
+                                                    span.price-span #{ev._source.priceBrutto.toFixed(2)} 
+                                                        small.sufix-p zł/os            
+                                        .event-bottom     
+                                            .catalog-number
+                                                .number-c
+                                                    span.label-nr numer katalogowy:
+                                                    span.catalog-badge #{ev.number}
+                                            .more-event
+                                                a(href=ev._source.link) szczegóły oferty 
+            .col-right-double
+                .right-content-db
+                    include ../partials/partners.pug                                               
+block footer
+    include ../partials/contact-section.pug

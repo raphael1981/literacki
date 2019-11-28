@@ -1,0 +1,55 @@
+[
+    {
+        "name": "Czytamy",
+        "alias": "czytamy",
+        "children": [
+            {
+                "name": "Książka",
+                "alias": "ksiazka",
+                "children": []
+            },
+            {
+                "name": "Czasopisma",
+                "alias": "czasopisma",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "Oglądamy",
+        "alias": "ogladamy",
+        "children": [
+            {
+                "name": "Film",
+                "alias": "film",
+                "children": []
+            },
+            {
+                "name": "Teatr",
+                "alias": "teatr",
+                "children": []
+            },
+            {
+                "name": "Wystawa",
+                "alias": "wystawa",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "Słuchamy",
+        "alias": "sluchamy",
+        "children": [
+            {
+                "name": "Płyta",
+                "alias": "plyta",
+                "children": []
+            },
+            {
+                "name": "Podcast",
+                "alias": "podcast",
+                "children": []
+            }
+        ]
+    }
+]

@@ -1,0 +1,77 @@
+[
+    {
+        "id": 13,
+        "title": "Kanon21",
+        "alias": "kanon21",
+        "children": [
+            {
+                "id": 14,
+                "title": "Literatura polska 1939-2019",
+                "alias": "literatura-polska-1939-2019",
+                "children": [
+                    {
+                        "id": 15,
+                        "title": "Historia literatury polskiej 1939-2019",
+                        "alias": "historia-literatury-polskiej-1939-2019",
+                        "children": []
+                    },
+                    {
+                        "id": 16,
+                        "title": "Pisarze i ich dzieła",
+                        "alias": "pisarze-i-ich-dziela",
+                        "children": []
+                    },
+                    {
+                        "id": 17,
+                        "title": "Etos literatury polskiej",
+                        "alias": "etos-literatury-polskiej",
+                        "children": []
+                    },
+                    {
+                        "id": 18,
+                        "title": "Historia Polski 1939-2019",
+                        "alias": "historia-polski-1939-2019",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "id": 19,
+                "title": "Teatr polski 1939-2019",
+                "alias": "teatr-polski-1939-2019",
+                "children": []
+            },
+            {
+                "id": 20,
+                "title": "Film polski 1939-2019",
+                "alias": "film-polski-1939-2019",
+                "children": []
+            },
+            {
+                "id": 21,
+                "title": "Europejskie Dziedzictwo",
+                "alias": "europejskie-dziedzictwo",
+                "children": []
+            },
+            {
+                "id": 22,
+                "title": "Edukacja Europejczyka",
+                "alias": "edukacja-europejczyk",
+                "children": [
+                    {
+                        "id": 23,
+                        "title": "Scenariusze lekcji literatury polskiej",
+                        "alias": "scenariusze-lekcji-literatury-polskiej",
+                        "children": []
+                    },
+                    {
+                        "id": 24,
+                        "title": "Szkolenia dla nauczycieli",
+                        "alias": "szkolenia-dla-nauczycieli",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,0 +1,22 @@
+<app-header [catalog]="viewCatalog" [menu]="menu"></app-header>
+
+<section class="map">
+  <div class="container">
+    <div class="row">
+
+    </div>
+    <div class="row map-and-filters">
+      <div class="col-left-map">
+
+      </div>
+      <div class="col-right-map">
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="1">
+          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<app-footer></app-footer>

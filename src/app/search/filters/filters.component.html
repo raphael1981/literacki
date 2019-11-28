@@ -1,0 +1,159 @@
+<form [formGroup]="searchForm">
+  <div class="row row-top-filters">
+    <div class="col col-catalog" *ngIf="isCatalogSearch">
+      <h3 class="filter-t">Katalog:</h3>
+      <div class="box">
+        <select formControlName="catalog">
+          <option *ngFor="let item of catalogs" [value]="item.id">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col col-type" *ngIf="isTypeSearch">
+      <h3 class="filter-t">Typ:</h3>
+      <div class="box">
+        <select formControlName="type">
+          <option *ngFor="let item of eventTypes" [value]="item.value">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+    <!-- <div class="col-days">
+      <h3 class="filter-t">Ilość dni:</h3>
+      <div class="box">
+        <select formControlName="daysIn">
+          <option *ngFor="let item of days" [value]="item.value">{{item.name}}</option>
+        </select>
+      </div>
+    </div> -->
+    <div class="col-order col">
+      <h3 class="filter-t">Sortowanie:</h3>
+      <div class="box">
+        <select formControlName="ordering">
+          <option *ngFor="let item of orderings" [value]="item.value">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="f-region col col-tags">
+      <h3 class="filter-t">Regiony:</h3>
+      <div class="selected-tags">
+        <span class="selected-tag tag" *ngFor="let sr of selectedRegions;let i=index">
+          {{sr.name}} <span class="remove-tag" (click)="removeRegion(sr,i)">x</span>
+        </span>
+      </div>
+      <input type="text" formControlName="region" autocomplete="off" placeholder="Filtruj kryteria">
+      <div class="tags-hide-container">
+        <div [perfectScrollbar]="{}" class="scroll-area" [disabled]="false">
+          <span class="tag-el region tag" *ngFor="let r of regions;let i = index" (click)="addRegion(r)">
+            {{r.name}}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="f-city col col-tags">
+
+      <h3 class="filter-t">Miasta (Miejscowości):</h3>
+      <div class="selected-tags">
+        <span class="selected-tag tag" *ngFor="let cs of selectedCities;let i=index">
+          {{cs.name}} <span class="remove-tag" (click)="removeCity(cs,i)">x</span>
+        </span>
+      </div>
+      <input type="text" formControlName="city" autocomplete="off" placeholder="Filtruj kryteria">
+
+      <div class="tags-hide-container">
+        <div [perfectScrollbar]="{}" class="scroll-area" [disabled]="false">
+          <span class="tag-el city tag" *ngFor="let c of cities" (click)="addCity(c)">
+            {{c.name}}
+          </span>
+        </div>
+        <!-- <div [perfectScrollbar]="{}" class="scroll-area">
+          <span class="tag-el city tag" *ngFor="let c of relatedCities" (click)="addCity(c)">
+            {{c.name}}
+          </span>
+        </div> -->
+      </div>
+    </div>
+    <div class="f-attraction col col-tags">
+
+      <h3 class="filter-t">Atrakcje:</h3>
+      <div class="selected-tags">
+        <span class="selected-tag tag" *ngFor="let sa of selectedAttractions;let i=index">
+          {{sa.name}} <span class="remove-tag" (click)="removeAttraction(sa,i)">x</span>
+        </span>
+      </div>
+      <input type="text" formControlName="attraction" autocomplete="off" placeholder="Filtruj kryteria">
+
+      <div class="tags-hide-container">
+        <div [perfectScrollbar]="{}" class="scroll-area" [disabled]="false">
+          <span class="tag-el attraction tag" *ngFor="let at of attractions" (click)="addAttraction(at)">
+            {{at.name}}
+          </span>
+        </div>
+        <!-- <div [perfectScrollbar]="{}" class="scroll-area">
+          <span class="tag-el attraction tag" *ngFor="let at of relatedAttractions" (click)="addAttraction(at)">
+            {{at.name}}
+          </span>
+        </div> -->
+      </div>
+    </div>
+    <div class="f-theme col col-tags">
+
+      <h3 class="filter-t">Tematy:</h3>
+      <div class="selected-tags">
+        <span class="selected-tag tag" *ngFor="let th of selectedThemes;let i=index">
+          {{th.name}} <span class="remove-tag" (click)="removeTheme(th,i)">x</span>
+        </span>
+      </div>
+      <input type="text" formControlName="theme" autocomplete="off" placeholder="Filtruj kryteria">
+      <div class="tags-hide-container">
+        <div [perfectScrollbar]="{}" class="scroll-area" [disabled]="false">
+          <span class="tag-el theme tag" *ngFor="let at of themes" (click)="addTheme(at)">
+            {{at.name}}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="f-age col col-tags">
+      <h3 class="filter-t">Przedziały wiekowe:</h3>
+      <div class="selected-tags">
+        <span class="selected-tag tag" *ngFor="let at of selectedAges;let i=index">
+          {{at.from}} - {{at.to}} <span class="remove-tag" (click)="removeAge(at,i)">x</span>
+        </span>
+      </div>
+      <input type="text" formControlName="age" autocomplete="off" placeholder="Filtruj kryteria">
+      <div class="tags-hide-container">
+        <div [perfectScrollbar]="{}" class="scroll-area" [disabled]="false">
+          <span class="tag-el age tag" *ngFor="let at of ages" (click)="addAge(at)">
+            {{at.from}} - {{at.to}}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="f-day col col-tags">
+      <h3 class="filter-t">Liczba dni:</h3>
+      <div class="selected-tags">
+        <span class="selected-tag tag" *ngFor="let at of selectedDays;let i=index">
+          {{at.daysNumber}} dni <span class="remove-tag" (click)="removeDay(at,i)">x</span>
+        </span>
+      </div>
+      <!-- <input type="text" formControlName="age" autocomplete="off" placeholder="Filtruj kryteria"> -->
+      <div class="tags-hide-container">
+        <div [perfectScrollbar]="{}" class="scroll-area" [disabled]="false">
+          <span class="tag-el day tag" *ngFor="let at of daysList" (click)="addDay(at)">
+            {{at.daysNumber}} dni
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</form>
+<div class="row row-reset">
+  <div class="col-reset">
+    <button class="btn-reset" type="button" (click)="resetFilters()">
+      Wyczyść
+    </button>
+  </div>
+</div>

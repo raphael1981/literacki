@@ -1,0 +1,116 @@
+header.rotor {
+    margin-top: 120px;
+
+    .rotor-screen {
+        position: relative;
+        overflow: hidden;
+        min-height: 360px;
+
+        .shadow-over {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            z-index: 12;
+        }
+
+        .slide {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            opacity: 0;
+            filter: blur(30px);
+            transition: opacity 1000ms, filter 1300ms ease-out;
+
+        }
+
+        .slide.active {
+            z-index: 11;
+            opacity: 1;
+            filter: blur(0px);
+            transition: opacity 1000ms, filter 1300ms ease-out;
+        }
+
+
+        h2.title-big {
+            position: absolute;
+            color: #FFF;
+            z-index: 15;
+            @include defaultFontRegular($fontsize:3.2rem);
+            text-shadow: 1px 1px 0 #000;
+            right: -200%;
+            top: 5.6rem;
+            // right: calc((100% - 1440px) / 2);
+            transition: 1200ms right;
+
+
+        }
+
+        h2.title-big.active {
+            right: calc((100% - 1280px) / 2);
+
+            @media(max-width: 1570px) {
+                right: 10%;
+            }
+
+            transition: 1500ms right;
+        }
+
+        h3.title-small {
+            position: absolute;
+            color: #FFF;
+            z-index: 16;
+            @include defaultFontLight($fontsize:2rem);
+            text-shadow: 1px 1px 0 #000;
+            right: -200%;
+            top: 9.2rem;
+            // right: calc((100% - 1440px) / 2);
+            transition: 1700ms right;
+        }
+
+        h3.title-small.active {
+            right: calc((100% - 1280px) / 2);
+
+            @media(max-width: 1570px) {
+                right: 10%;
+            }
+
+            transition: 1700ms right;
+        }
+
+        a.btn-link {
+            position: absolute;
+            color: #FFF;
+            z-index: 17;
+            display: table;
+            border: 2px solid #FFF;
+            padding: 9px 35px;
+            text-decoration: none;
+            border-radius: 25px;
+            @include defaultFontRegular($fontsize:1.4rem);
+            text-shadow: 1px 1px 0 #000;
+            box-shadow: 1px 1px 0 #000;
+            right: -200%;
+            top: 12.3rem;
+            // right: calc((100% - 1440px) / 2);
+            transition: 2000ms right;
+
+        }
+
+        a.btn-link.active {
+            right: calc((100% - 1280px) / 2);
+
+            @media(max-width: 1570px) {
+                right: 10%;
+            }
+
+            transition: 2000ms right;
+        }
+
+    }
+}

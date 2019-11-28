@@ -1,0 +1,113 @@
+<div class="event-row" [ngClass]="{ 
+    'ev-winter': (eventElement.eventType == 'organize' && eventElement.eventSezonType == 'winter'), 
+    'ev-summer': (eventElement.eventType == 'organize' && eventElement.eventSezonType == 'summer'),
+    'ev-template': (eventElement.eventType == 'template'),
+    'ev-noavl': (eventElement.eventType == 'template' && !isDateAvl)  
+}">
+  <div class="event-top">
+    <div class="image-col">
+      <img class="img-fluid" [src]="apiUrl+'/'+eventElement.image" />
+    </div>
+    <div class="data-col">
+      <div class="event-content">
+        <div class="event-title-price">
+          <div class="title-col">
+            <h2 class="event-name"> {{eventElement.name}}</h2>
+          </div>
+          <div class="price-col">
+            <div class="price-data" *ngIf="eventElement.eventType=='template'">
+              <button class="prices-btn" type="button" (click)="openPrice()">
+                Cennik
+              </button>
+              <div class="desc-prices">
+                tabela/ilość osób
+              </div>
+            </div>
+            <div class="price-data" *ngIf="eventElement.eventType=='organize'">
+              <span class="price-span">
+                {{eventElement.priceBrutto | priceView}}
+                <small class="sufix-p">
+                  zł/os
+                </small>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="date-area">
+          <span class="days-count" *ngFor="let d of eventElement.days">{{d.daysNumber}} dni</span>
+          <span *ngIf="eventElement.eventType == 'template'" class="date-area-str-muted">
+            wybrany przez klienta
+          </span>
+
+        </div>
+        <div class="info-no-avl" *ngIf="!isDateAvl">
+          <span class="event-end">
+            oferta niedostępna
+          </span>
+        </div>
+        <div class="info-full-persons"
+          *ngIf="eventElement.status=='noavl' && isDateAvl && eventElement.eventType == 'organize'">
+          <span class="event-full">
+            aktulanie brak miejsc
+          </span>
+        </div>
+        <div class="desc">
+          {{eventElement.smallDesc}}
+        </div>
+        <div class="region-row">
+          <div class="region-label">Region:</div>
+          <div class="regions">
+            <span class="region-badge" *ngFor="let reg of eventElement.regions">
+              {{reg.name}}
+            </span>
+          </div>
+        </div>
+        <div class="city-row">
+          <div class="ages-label">Miasta:</div>
+          <div class="ages">
+            <span class="age-badge" *ngFor="let ct of eventElement.cities">
+              {{ct.name}}
+            </span>
+          </div>
+        </div>
+        <div class="city-row">
+          <div class="ages-label">Atrakcje:</div>
+          <div class="ages">
+            <span class="age-badge" *ngFor="let at of eventElement.attractions">
+              {{at.name}}
+            </span>
+          </div>
+        </div>
+        <div class="theme-row">
+          <div class="ages-label">Tematyka:</div>
+          <div class="ages">
+            <span class="age-badge" *ngFor="let tm of eventElement.themes">
+              {{tm.name}}
+            </span>
+          </div>
+        </div>
+        <div class="ages-row">
+          <div class="ages-label">Wiek:</div>
+          <div class="ages">
+            <span class="age-badge" *ngFor="let ag of eventElement.ages">
+              {{ag.from}} - {{ag.to}}
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <div class="event-bottom">
+    <div class="catalog-number">
+      <div class="number-c">
+        <span class="label-nr">numer katalogowy:</span>
+        <span class="catalog-badge">{{eventElement.number}}</span>
+      </div>
+    </div>
+    <div class="more-event"><a [href]="apiUrl+'/'+eventElement.link">szczegóły oferty</a></div>
+  </div>
+</div>

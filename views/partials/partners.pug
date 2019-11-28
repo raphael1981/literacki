@@ -1,0 +1,8 @@
+.partners-cnt
+    h2 Partnerzy
+    .logotypes
+        each pt in partners
+            .partner-el
+                a(href=pt.link target="_blank" rel="noopener noreferrer")
+                    img(src=pt.image, alt="" class="img-fluid") 
+            

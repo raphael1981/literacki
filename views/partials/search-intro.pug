@@ -1,0 +1,13 @@
+section.intro-search
+    .container
+        .row
+            .col-search-icon
+                a(href="/wyszukiwanie?catalog="+currentCatalog.id+"&type=template")
+                    img(src="/img/search-icon.svg", alt="")
+            .col-search-catalog-link
+                .row-search-more
+                    .col-text
+                        h2 Przeszukuj aktualny katalog 
+                        span.catalog-name (#{currentCatalog.name})
+                    .col-btn
+                        a(href="/wyszukiwanie?catalog="+currentCatalog.id+"&type=template") 

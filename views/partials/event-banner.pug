@@ -1,0 +1,19 @@
+if(event.eventSezonType=='winter' && event.eventType=='organize')
+    header.event-banner.winter-banner
+        .image-bg
+        .shadow-bg
+        .title-txt
+            h2 Zimowisko
+if(event.eventSezonType=='summer' && event.eventType=='organize')
+    header.event-banner.summer-banner
+        .image-bg
+        .shadow-bg
+        .title-txt
+            h2 Kolonia letnia
+if(event.eventType=='template' && event.eventType!='organize')
+    header.event-banner.template-banner
+        .image-bg
+        .shadow-bg
+        .title-txt
+            h2 Wycieczka - #{event.catalogName}
+        

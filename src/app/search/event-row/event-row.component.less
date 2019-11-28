@@ -1,0 +1,456 @@
+@import '../../../assets/colors.less';
+@import '../../../assets/fonts.less';
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+
+.event-row {
+    width: 100%;
+    margin-bottom: 64px;
+    display: flex;
+    flex-wrap: wrap;
+
+    .event-top {
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        padding: 16px 0;
+        width: calc(~"100% - 20px");
+
+        .image-col {
+            width: 250px;
+            margin-right: 32px;
+        }
+
+        .data-col {
+            width: calc(~"100% - 32px");
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: flex-start;
+        }
+
+        .image-col {}
+
+        .data-col {
+            .event-content {
+                padding: 0 32px 0 0;
+
+
+                .event-title-price {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: space-between;
+
+                    .col-title {
+                        align-self: flex-start;
+                    }
+
+                    .col-price {
+
+                        span.price-span {
+                            .defaultFontRegular(1.9rem);
+
+                            small.sufix-p {
+                                .defaultFontLight(1.2rem);
+                                color: #000;
+                            }
+                        }
+                    }
+
+
+                    h2.event-title {
+                        .defaultFontBold(1.8rem);
+                        text-transform: uppercase;
+                    }
+
+                }
+
+                h2.event-name {
+                    .defaultFontBold(1.8rem);
+                    // text-transform: uppercase;
+                    margin-bottom: 16px;
+                    text-transform: uppercase;
+                }
+
+                .date-area {
+                    .defaultFontRegularItalic(1.2rem);
+                    display: flex;
+                    flex-wrap: nowrap;
+                    align-items: flex-start;
+
+                    span.days-count {
+                        margin-right: 4px;
+                        padding: 4px 10px;
+                        color: #FFF;
+                    }
+
+                    span.date-area-str {
+                        padding: 4px 10px;
+                        color: #FFF;
+                        background-color: @bordo;
+                    }
+                }
+
+                .info-full-persons {
+                    display: flex;
+                    margin-top: 8px;
+                    margin-bottom: 8px;
+
+                    span.event-full {
+                        color: @bordo;
+                        .defaultFontSemiBold(1.2rem);
+                    }
+                }
+
+                .desc {
+                    margin-bottom: 32px;
+                    margin-top: 32px;
+                    line-height: 1.8rem;
+                }
+
+                .region-row {
+
+                    display: flex;
+                    flex-wrap: nowrap;
+                    margin-bottom: 8px;
+
+                    .region-label {
+                        margin-right: 8px;
+                        .defaultFontSemiBold(0.9rem);
+                        min-width: 70px;
+                    }
+
+                    .regions {
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        span.region-badge {
+                            background-color: @darkGray;
+                            padding: 4px 10px;
+                            margin: 0 4px 4px 0;
+                            color: #FFF;
+                            .defaultFontRegular(0.9rem);
+                        }
+                    }
+
+                }
+
+                .city-row {
+
+                    display: flex;
+                    flex-wrap: nowrap;
+                    margin-bottom: 8px;
+
+                    .ages-label {
+                        margin-right: 8px;
+                        .defaultFontSemiBold(0.9rem);
+                        min-width: 70px;
+                    }
+
+                    .ages {
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        span.age-badge {
+                            background-color: @darkGray;
+                            padding: 4px 10px;
+                            margin: 0 4px 4px 0;
+                            color: #FFF;
+                            .defaultFontRegular(0.9rem);
+                        }
+
+                    }
+
+                }
+
+                .ages-row {
+
+                    display: flex;
+                    flex-wrap: nowrap;
+                    margin-bottom: 8px;
+
+                    .ages-label {
+                        margin-right: 8px;
+                        .defaultFontSemiBold(0.9rem);
+                        min-width: 70px;
+                    }
+
+                    .ages {
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        span.age-badge {
+                            background-color: @darkGray;
+                            padding: 4px 10px;
+                            margin: 0 4px 4px 0;
+                            color: #FFF;
+                            .defaultFontRegular(0.9rem);
+                        }
+
+                    }
+
+                }
+
+                .theme-row {
+
+                    display: flex;
+                    flex-wrap: nowrap;
+                    margin-bottom: 8px;
+
+                    .ages-label {
+                        margin-right: 8px;
+                        .defaultFontSemiBold(0.9rem);
+                        min-width: 70px;
+                    }
+
+                    .ages {
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        span.age-badge {
+                            background-color: @darkGray;
+                            padding: 4px 10px;
+                            margin: 0 4px 4px 0;
+                            color: #FFF;
+                            .defaultFontRegular(0.9rem);
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+
+        .price-data {
+            text-align: right;
+
+            button.prices-btn {
+                color: @bordo;
+                .defaultFontRegular(1.9rem);
+                border: none;
+                background-color: transparent;
+                line-height: 0;
+                // padding-top: 10px;
+                cursor: pointer;
+            }
+
+            button:focus {
+                outline: none;
+            }
+
+            div.desc-prices {
+                display: block;
+                .defaultFontLight(0.7rem);
+                color: #000;
+                padding-right: 10px;
+
+            }
+
+
+            span.price-span {
+                color: @bordo;
+                .defaultFontRegular(1.9rem);
+
+                small.sufix-p {
+                    .defaultFontLight(1.2rem);
+                    color: #000;
+                }
+            }
+
+        }
+
+
+    }
+
+    .event-bottom {
+        display: flex;
+        flex-wrap: nowrap;
+        width: calc(~"100% - 40px");
+        margin-left: 20px;
+        align-items: center;
+        justify-content: space-between;
+
+        .catalog-number {
+            .number-c {
+                padding-left: 16px;
+                color: #FFF;
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: center;
+
+                span.label-nr {
+                    margin-right: 16px;
+                    .defaultFontRegular(0.9rem);
+                }
+
+                span.catalog-badge {
+                    .defaultFontRegular(1.2rem);
+                }
+            }
+        }
+
+        .more-event {
+            height: 68px;
+
+            a {
+                display: table;
+                margin-top: 14px;
+                border: 2px solid #FFF;
+                padding: 10px 35px 10px 55px;
+                text-decoration: none;
+                border-radius: 25px;
+                .defaultFontRegular(1.2rem);
+                color: #FFF;
+                background: url(~"../../../img/arrows/arrow-white.png") no-repeat 20px 12px;
+            }
+        }
+    }
+
+}
+
+
+
+
+.event-row.ev-winter {
+
+    .event-top {
+        box-shadow: 20px 70px 0 @granat, -0px 70px 0 @granat;
+
+        h2.event-name {
+            color: @granat;
+        }
+
+
+        .date-area {
+            span.days-count {
+                background-color: @granat;
+                margin-bottom: 8px;
+            }
+
+            span.date-area-str {
+                background-color: @granat;
+            }
+        }
+    }
+
+    .image-col {
+        img {
+            box-shadow: 4px 8px 0 @granat;
+        }
+    }
+}
+
+
+.event-row.ev-summer {
+
+    .event-top {
+        box-shadow: 20px 70px 0 @green, -0px 70px 0 @green;
+
+        h2.event-name {
+            color: @green;
+        }
+
+
+        .date-area {
+            span.days-count {
+                background-color: @green;
+                margin-bottom: 8px;
+            }
+
+            span.date-area-str {
+                background-color: @green;
+            }
+        }
+    }
+
+    .image-col {
+        img {
+            box-shadow: 4px 8px 0 @green;
+        }
+    }
+
+}
+
+.event-row.ev-template {
+
+    .event-top {
+        box-shadow: 20px 70px 0 @orange, -0px 70px 0 @orange;
+
+        h2.event-name {
+            color: @orange;
+        }
+
+
+        .date-area {
+            span.days-count {
+                background-color: @bordo;
+                margin-bottom: 8px;
+            }
+
+            span.date-area-str {
+                background-color: @orange;
+            }
+
+            span.date-area-str-muted {
+                padding: 4px 10px;
+                color: #FFF;
+                background-color: @mediumGray;
+            }
+        }
+    }
+
+    .image-col {
+        img {
+            box-shadow: 4px 8px 0 @orange;
+        }
+    }
+
+}
+
+
+.event-row.ev-noavl {
+
+
+    .event-top {
+        box-shadow: 20px 70px 0 @darkGray, -0px 70px 0 @darkGray;
+
+        .data-col {
+
+            .event-content {
+
+                h2.event-name {
+                    color: #000;
+                }
+
+
+                .date-area {
+                    span.days-count {
+                        background-color: @darkGray;
+                        margin-bottom: 8px;
+                    }
+
+                    span.date-area-str {
+                        background-color: @darkGray;
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    .info-no-avl {
+        display: flex;
+        margin-top: 8px;
+        margin-bottom: 8px;
+
+        span.event-end {
+            color: #FFF;
+            padding: 4px 10px;
+            background-color: #384f40;
+        }
+    }
+
+    .price-data {
+        filter: grayscale(100%);
+    }
+}

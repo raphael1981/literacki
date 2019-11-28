@@ -1,0 +1,5 @@
+@mixin aspect-ratio($width, $baseW: 560, $baseH: 315) {
+  width: $width+px;
+  $h: ($baseH*$width)/$baseW;
+  height: $h+px;
+}

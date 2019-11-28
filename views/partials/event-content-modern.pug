@@ -1,0 +1,80 @@
++sezon_type(event)
+    .abs-shadow
+    .container
+        .row
+            if(event.eventSezonType=='winter' && event.eventType=='organize')
+                .event-banner.winter-banner
+                    .image-bg
+                    .shadow-bg
+                    .title-txt
+                        h2 Zimowisko
+            if(event.eventSezonType=='summer' && event.eventType=='organize')
+                .event-banner.summer-banner
+                    .image-bg
+                    .shadow-bg
+                    .title-txt
+                        h2 Kolonia letnia
+            if(event.eventType=='template' && event.eventType!='organize')
+                .event-banner.template-banner
+                    .image-bg
+                    .shadow-bg
+                    .title-txt
+                        h2 Wycieczka - #{event.catalogName}
+    .content-of-event
+        .left-curtain
+        .center-curtain
+        .right-curtain
+        .container
+            .row
+                .left-col
+                    .padding-content-left 
+                        include ./small-event-gallery.pug
+                        .more-padding
+                            .content-data 
+                                .content-label.label-color Opis:
+                                .content-text #{event.longDesc}
+
+                .right-col
+                    .padding-content-right 
+                        if(event.eventType=='template' && event.eventType!='organize')
+                            .event-title
+                                h2.event-title #{event.name}
+                            .date-area
+                                span.days-count #{event.daysTotal} dni
+                                span.date-area-str-muted wybrany przez klienta
+                        else
+                            .event-title-price        
+                                .col-title
+                                    h2.event-title #{event.name}
+                                .col-price
+                                    span.price-span #{eventBase.priceBrutto} 
+                                        small.sufix-p zł/os    
+                            .date-area
+                                span.days-count #{event.daysTotal} dni
+                                +date_area_string(event.startAt,event.endAt,moment)
+
+                        .region-row
+                            .region-label
+                                | Region:
+                            .regions
+                                each r in event.regions
+                                    span.region-badge #{r.name}
+                        .city-row
+                            .city-label
+                                | Miasta:
+                            .cities
+                                each r in event.cities
+                                    span.city-badge #{r.name}
+                        .attraction-row
+                            .attraction-label
+                                | Atrakcje:
+                            .attractions
+                                each r in event.attractions
+                                    span.attraction-badge #{r.name}
+                        .theme-row
+                            .theme-label
+                                | Tematyka:
+                            .themes
+                                each r in event.themes
+                                    span.theme-badge #{r.name}
+

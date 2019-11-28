@@ -1,0 +1,18 @@
+extends ../layouts/layout.pug
+
+block header
+    include ../partials/event-banner.pug
+    include ../partials/submenu.pug
+    
+block content
+    .double-container
+        .row
+            .col-left-double
+                include ../partials/event-content-modern-next.pug
+            .col-right-double
+                .right-content-db
+                        include ../partials/partners.pug
+    
+block footer
+    include ../partials/contact-section.pug
+    include ../partials/pswp.pug

@@ -1,0 +1,77 @@
+mixin date_string(date=new Date())
+    - var months = ['Stycznia','Lutego','Marca', 'Kwietnia', 'Maja', 'Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia']
+    - var d = date.getDate()
+    - var m = date.getMonth()
+    - var y = date.getFullYear()
+    .date-view
+        if(d>9)
+            | #{d}&nbsp;
+        else
+            | #{d}&nbsp; 
+
+        | #{months[m]}&nbsp;  
+        | #{y} 
+
+mixin date_area_string(startAt=new Date(), endAt=new Date(),moment)
+    //- - var months = ['Stycznia','Lutego','Marca', 'Kwietnia', 'Maja', 'Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia']
+    - var sAt = moment(startAt)
+    - var eAt = moment(endAt)
+    if(sAt.toDate().getFullYear()==eAt.toDate().getFullYear())
+        span.date-area-str #{sAt.format('D.MM')} - #{eAt.format('D.MM.YYYY')}
+    else
+        span.date-area-str #{sAt.format('D.MM.YYYY')} - #{eAt.format('D.MM.YYYY')}    
+
+mixin date_avl_class_string(date=new Date(),moment,sezonType)
+    - var now = moment(new Date()).add(1,'day')
+    - var st = moment(date)
+    if(now.isAfter(st))
+        .event-row.not-avl(class=sezonType)
+            block
+    else
+        .event-row.avl(class=sezonType)
+            block
+
+mixin sezon_type(event)
+    if(event.eventSezonType=='winter' && event.eventType=='organize')
+        section.content-event-modern.event-winter
+                block
+    if(event.eventSezonType=='summer' && event.eventType=='organize')
+        section.content-event-modern.event-summer
+                block
+    if(event.eventType=='template')
+        section.content-event-modern.event-template
+            block
+
+mixin sezon_type_next(event)
+    if(event.eventSezonType=='winter' && event.eventType=='organize')
+        section.content-event-modern-next.event-winter
+                block
+    if(event.eventSezonType=='summer' && event.eventType=='organize')
+        section.content-event-modern-next.event-summer
+                block
+    if(event.eventType=='template')
+        section.content-event-modern-next.event-template
+            block
+    
+mixin pagination(offset,limit,total,current=1,path)
+    - var pags = []
+    - var totalPags = Math.ceil(total/limit);
+    - for(var i=0;i<totalPags;i++)
+        - if(current==(i+1))
+            - pags.push({nr:(i+1),active:true})
+        - else
+            - pags.push({nr:(i+1),active:false})   
+    if(total>limit)
+        ul.pagination
+            if(current!=1)
+                li
+                    a(href=path+"?page="+(parseInt(current)-1)) <<
+            each p in pags
+
+                li(class=(p.active)?"active":"") 
+                    a(href=path+"?page="+p.nr) #{p.nr}
+
+            if(current!=totalPags)
+                li
+                    a(href=path+"?page="+(parseInt(current)+1)) >>
+            

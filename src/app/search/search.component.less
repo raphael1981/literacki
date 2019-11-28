@@ -1,0 +1,75 @@
+@import '../../assets/colors.less';
+
+.search-index {
+    background: @lightGray;
+    padding: 16px 16px 32px 96px;
+    margin-bottom: 64px;
+
+    width: 100%;
+
+
+    .container {
+        width: 95%;
+    }
+
+
+    .row {
+        align-items: flex-start;
+        flex-wrap: wrap;
+
+        .col-search {
+            width: 100%;
+        }
+
+    }
+}
+
+
+.scroll-area-filters {
+    position: relative;
+    max-height: ~"calc(100vh - 200px)";
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+
+}
+
+.search-index-result {
+    padding-bottom: 32px;
+    padding-right: 96px;
+    padding-top: 64px;
+    // margin-left: calc(~"(((100vw - 1280px) / 2) + 23vw - 20px)");
+    margin-left: auto;
+    margin-right: auto;
+
+
+
+    .row {
+        align-items: flex-start;
+        flex-wrap: wrap;
+
+        .col-results {
+            width: 100%;
+        }
+
+
+
+    }
+}
+
+.container-search-columns {
+    .row {
+        display: flex;
+        flex-wrap: nowrap;
+
+        .col-left-search {
+            width: 800px;
+            margin-right: 64px;
+        }
+
+        .col-right-search {
+            // width: 60%;
+        }
+    }
+}

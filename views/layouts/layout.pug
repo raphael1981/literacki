@@ -1,0 +1,14 @@
+include ../mixins.pug
+doctype html
+html(ng-app="app")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    title Wirtur
+    include ../partials/styles.pug
+  body(ng-controller="BodyController")
+    include ../partials/menu.pug
+    block header
+    block content
+    block footer
+    include ../partials/scripts.pug

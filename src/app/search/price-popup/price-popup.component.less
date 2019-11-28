@@ -1,0 +1,127 @@
+@import '../../../assets/colors.less';
+@import '../../../assets/fonts.less';
+
+.overshadow {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 99;
+}
+
+.edit-area {
+    position: fixed;
+    left: 20vw;
+    top: 20vh;
+    width: 60vw;
+    // height: 50vh;
+    background: #FFF;
+    z-index: 100;
+    padding: 2vh 2vw 2vh 2vw;
+
+    .scroll-inside {
+        width: 56vw;
+        // height: 48vh;
+    }
+
+    button.select-type {
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 10px;
+
+        i {
+            font-size: 2rem;
+        }
+    }
+
+    .close-btn {
+        position: absolute;
+        right: -20px;
+        top: -1vh;
+        background: #FFF;
+        border-radius: 90px;
+        width: 50px;
+        height: 53px;
+        padding-top: 7px;
+        text-align: center;
+        box-shadow: 0 0 10px #000;
+        cursor: pointer;
+        font-size: 2rem;
+        z-index: 12;
+        color: #000;
+    }
+
+
+}
+
+.row-cnt {
+    display: flex;
+    align-items: center;
+    // height: 48vh;
+
+    .col-cnt {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        // flex-direction: row;
+    }
+}
+
+.row-table {
+    display: grid;
+    // grid-template: none !important;
+
+    .table-col {
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+.row-table.header {
+    border-top: 1px solid @darkGreen;
+    border-left: 1px solid @darkGreen;
+    border-right: 1px solid @darkGreen;
+
+    .table-col {
+        border-right: 1px solid @darkGreen;
+        .defaultFontSemiBold(1.2rem);
+        background-color: @mediumGreen;
+        color: #FFF;
+
+        span.people-suffix {
+            .defaultFontRegular(0.7rem)
+        }
+    }
+
+    .table-col:last-child {
+        border-right: none;
+    }
+}
+
+.row-table.body {
+    border-bottom: 1px solid @darkGreen;
+    border-left: 1px solid @darkGreen;
+    border-right: 1px solid @darkGreen;
+
+    .table-col {
+        border-top: 1px solid @darkGreen;
+        border-right: 1px solid @darkGreen;
+
+        span.price-data {
+            color: @bordo;
+        }
+
+        span.price-suffix {
+            .defaultFontRegular(0.7rem)
+        }
+
+    }
+
+    .table-col:last-child {
+        border-right: none;
+    }
+}

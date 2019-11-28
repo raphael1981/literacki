@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Tygodnik Literacki",
+        "alias": "tygodnik-literacki",
+        "sectionType": "newspaper",
+        "image": null,
+        "smallDesc": "",
+        "longDesc": ""
+    },
+    {
+        "title": "Sądy, Przesądy",
+        "alias": "sady-przesady",
+        "sectionType": "program",
+        "image": null,
+        "smallDesc": "",
+        "longDesc": ""
+    },
+    {
+        "title": "Kanon21",
+        "alias": "kanon21",
+        "sectionType": "kanon",
+        "image": null,
+        "smallDesc": "",
+        "longDesc": ""
+    }
+]

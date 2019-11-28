@@ -1,0 +1,39 @@
+extends ../layouts/layout.pug
+
+block header
+    include ../partials/banner-articles.pug
+    include ../partials/submenu.pug
+    
+block content
+    section.article-cnt
+        each art,i in articles
+            section.article(class=(i % 2==1)?'odd':'even')
+                .container
+                    .row
+                        .col-articles
+                            
+                                if(i % 2==1)
+                                    .row-article.odd
+                                        .col-left
+                                            h2.art-title #{art.title}
+                                            .content-text
+                                                | #{art.smallDesc}
+                                            //- .more-beam
+                                            //-     a(href="" class="arrow-btn orange-btn") Czytaj więcej   
+                                        .col-right
+                                            img(src=art.image class="img-fluid")
+                                else
+                                    .row-article.even
+                                        .col-left
+                                            img(src=art.image class="img-fluid")
+                                        .col-right
+                                            h2.art-title #{art.title}
+                                            .content-text
+                                                | #{art.smallDesc}
+                                            //- .more-beam
+                                            //-     a(href="" class="arrow-btn orange-btn") Czytaj więcej 
+    
+
+block footer
+    include ../partials/contact-section.pug
+    include ../partials/pswp.pug

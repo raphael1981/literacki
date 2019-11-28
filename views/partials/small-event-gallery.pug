@@ -1,0 +1,13 @@
+- var gallery = JSON.parse(event.microGallery)
+if(gallery.length>0)
+    .microgallery-cnt
+        .show-first
+            img.img-fluid#openCurrent(src=gallery[0].image data-index="0")
+        .gallery-thumb-images    
+            .swp-gallery(itemscope='' itemtype='http://schema.org/ImageGallery')
+                each img in gallery
+                    figure.swp-gal-col(itemprop='associatedMedia' itemscope='' itemtype='http://schema.org/ImageObject')
+                        a.thumbnail(href=img.image itemprop='contentUrl' data-size=img.sizeString)
+                            span.thumb-image
+                                img.img-fluid.image-thumb(src=img.image)
+                        figcaption(itemprop='caption description')

@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Sylwetka tygodnia",
+        "alias": "sylwetka-tygodnia",
+        "path": "sylwetka-tygodnia",
+        "categoryViewType": "week_profile",
+        "sectionId": 1
+    },
+    {
+        "name": "Debata",
+        "alias": "debata",
+        "path": "debata",
+        "categoryViewType": "debate",
+        "sectionId": 1
+    },
+    {
+        "name": "Rekomendacje",
+        "alias": "rekomendacje",
+        "path": "rekomendacje",
+        "categoryViewType": "recomendation",
+        "sectionId": 1
+    }
+]

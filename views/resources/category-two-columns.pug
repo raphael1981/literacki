@@ -1,0 +1,31 @@
+extends ../layouts/layout.pug
+
+block header
+    include ../partials/banner-category.pug
+    include ../partials/submenu.pug
+    
+block content
+    section.blog
+        .container
+            .row
+                .col-blog
+                    .row-blog-articles
+                        each art in blog.articles
+                            .col-art
+                                .col-image
+                                    img(src=art.image, alt="" class="img-fluid")
+                                .col-data
+                                    h2.art-title #{art.title}
+                                    +date_string(art.publishedAt)
+                                    .intro-content
+                                        | #{art.smallDesc}
+                                    .more-beam
+                                        a(href="" class="arrow-btn orange-btn") Czytaj więcej 
+                            
+    include ../partials/pagination.pug
+    
+
+
+block footer
+    include ../partials/contact-section.pug
+    include ../partials/pswp.pug

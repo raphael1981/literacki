@@ -1,0 +1,9 @@
+<div class="col-pagination" *ngIf="pagination.length>1">
+  <ul class="pagination-list">
+    <li *ngFor="let p of pagination;index as i" [ngClass]="{'active': p.active}" class="page-item">
+      <a href="#" class="page-link" (click)="changePag($event,p)">
+        {{p.nr}}
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,46 @@
+[
+    {
+        "id": 2,
+        "title": "Tygodnik Literacki",
+        "alias": "tygodnik-literacki",
+        "children": [
+            {
+                "id": 3,
+                "title": "Sylwetka tygodnia",
+                "alias": "sylwetka-tygodnia",
+                "children": []
+            },
+            {
+                "id": 4,
+                "title": "Debata",
+                "alias": "debata",
+                "children": []
+            },
+            {
+                "id": 5,
+                "title": "Rekomendacje",
+                "alias": "rekomendacje",
+                "children": [
+                    {
+                        "id": 6,
+                        "title": "Czytamy",
+                        "alias": "czytamy",
+                        "children": []
+                    },
+                    {
+                        "id": 7,
+                        "title": "Oglądamy",
+                        "alias": "ogladamy",
+                        "children": []
+                    },
+                    {
+                        "id": 8,
+                        "title": "Słuchamy",
+                        "alias": "sluchamy",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    }
+]
