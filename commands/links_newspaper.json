@@ -19,7 +19,7 @@
         "title": "Sylwetka tygodnia",
         "alias": "sylwetka-tygodnia",
         "path": "tygodnik-literacki/sylwetka-tygodnia",
-        "dataType": "category_weekprofile",
+        "dataType": "category_figure",
         "externalLink": null,
         "customView": null,
         "linkedMenus": "",

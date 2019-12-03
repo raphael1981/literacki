@@ -3,7 +3,7 @@ const DataTypes = require('sequelize').DataTypes;
 const Sequelize = require('sequelize')
 
 
-const HistoricalEvents = sequelize.define('gallery', {
+const Historicalevents = sequelize.define('historicalevents', {
     name: DataTypes.STRING(255),
     alias: {
         type: DataTypes.STRING(255),
@@ -20,4 +20,4 @@ const HistoricalEvents = sequelize.define('gallery', {
     }
 });
 
-module.exports = HistoricalEvents
+module.exports = Historicalevents

@@ -3,14 +3,12 @@ const router = require('express').Router();
 const LinksController = require("./controllers/api/LinksController")
 const MenuController = require("./controllers/api/MenuController")
 const SearchController = require("./controllers/SearchController")
-const CatalogController = require('./controllers/api/CatalogController')
 const MediaRepository = require("./repositories/MediaRepository")
 
 
 router.get('/search/index', SearchController.index)
 router.get('/get/search/criteria', SearchController.getCriteria)
 router.get('/cache/search/criteria', SearchController.cacheCriteria)
-router.get('/get/catalog/:id', CatalogController.getCatalog)
 router.get('/get/cached/menu', MenuController.getCachedMenu)
 
 

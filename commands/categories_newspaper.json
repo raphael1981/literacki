@@ -3,7 +3,7 @@
         "name": "Sylwetka tygodnia",
         "alias": "sylwetka-tygodnia",
         "path": "sylwetka-tygodnia",
-        "categoryViewType": "week_profile",
+        "categoryViewType": "figure",
         "sectionId": 1
     },
     {

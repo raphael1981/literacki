@@ -3,7 +3,7 @@ const DataTypes = require('sequelize').DataTypes;
 const Sequelize = require('sequelize')
 
 
-const Event = sequelize.define('article', {
+const Event = sequelize.define('event', {
     title: DataTypes.STRING(255),
     alias: {
         type: DataTypes.STRING(255),

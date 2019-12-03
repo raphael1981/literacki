@@ -1,21 +1,11 @@
 extends layouts/layout.pug
 
 block header
-    include ./partials/front-rotor.pug
-    include ./partials/submenu.pug
-    .double-container
-        .row
-            .col-left-double
-                include ./partials/search-intro.pug
-                include ./partials/home-article.pug
-                include ./partials/home-boxes.pug 
-                
-            .col-right-double
-                .right-content-db
-                    include ./partials/partners.pug
-                   
-    include ./partials/map-section.pug
+
 block content
+
+    | !{menus[0]}
+    | !{menus[1]}
+    | !{menus[2]}
     
 block footer
-    include ./partials/contact-section.pug

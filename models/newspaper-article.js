@@ -3,7 +3,7 @@ const DataTypes = require('sequelize').DataTypes;
 const Sequelize = require('sequelize')
 
 
-const NewsPaperArticle = sequelize.define('newspaperarticle', {
+const Newspaperarticle = sequelize.define('newspaperarticle', {
     title: DataTypes.STRING(255),
     alias: {
         type: DataTypes.STRING(255),
@@ -12,21 +12,8 @@ const NewsPaperArticle = sequelize.define('newspaperarticle', {
     image: DataTypes.STRING,
     smallDesc: DataTypes.TEXT,
     longDesc: DataTypes.TEXT,
-    newspaperArticleType: {
-        type: DataTypes.ENUM,
-        values: [
-            'none',
-            'debate',
-            'weekProfile',
-            'mediaRecomendation'
-        ],
-        defaultValue: 'none'
-    },
     ordering: DataTypes.INTEGER,
     attachments: {
-        type: DataTypes.TEXT
-    },
-    movie: {
         type: DataTypes.TEXT
     },
     metaDescription: DataTypes.TEXT,
@@ -38,4 +25,4 @@ const NewsPaperArticle = sequelize.define('newspaperarticle', {
     }
 }, {});
 
-module.exports = NewsPaperArticle
+module.exports = Newspaperarticle

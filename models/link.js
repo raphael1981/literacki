@@ -12,7 +12,7 @@ const Link = sequelize.define('link', {
       'home',
       'section_newspaper',
       'category_debate',
-      'category_weekprofile',
+      'category_figure',
       'category_recomendations',
       'section_program',
       'category_program',

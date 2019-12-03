@@ -15,20 +15,25 @@ const Menu = require('../models/index').Menu
 const User = require('../models/index').User
 const Section = require('../models/index').Section
 const Category = require('../models/index').Category
-const NewsPaper = require('../models/index').NewsPaper
-const NewsPaperArticle = require('../models/index').NewsPaperArticle
+const Newspaper = require('../models/index').Newspaper
+const Newspaperarticle = require('../models/index').Newspaperarticle
 const Author = require('../models/index').Author
+const Journalist = require('../models/index').Journalist
 const Articlecontent = require('../models/index').Articlecontent
 const Gallery = require('../models/index').Gallery
 const Episode = require('../models/index').Episode
-const MediaCategory = require('../models/index').MediaCategory
+const Mediacategory = require('../models/index').Mediacategory
 const Event = require('../models/index').Event
-const Movie = require('../models/index').Movie
+const Mediaresource = require('../models/index').Mediaresource
 const Scenerio = require('../models/index').Scenerio
 const Opus = require('../models/index').Opus
-
+const Debate = require('../models/index').Debate
+const Figure = require('../models/index').Figure
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
 const MenuRepository = require('../repositories/MenuRepository')
 const ElasticSearchRepository = require('../repositories/ElasticSearchRepository')
+const ElasticSearchMappingRepository = require('../repositories/ElasticSearchMappingRepository')
 const html2pug = require('html2pug')
 const ParseHelper = require('../helpers/parse-helper')
 const PathHelper = require('../helpers/paths-helper');
@@ -148,24 +153,54 @@ program
     })
 
 
-async function createAuthors() {
+async function createJournalists() {
 
     await map(Array(60).fill(0), async (v, i) => {
 
-        var name = faker.name.firstName() + ' ' + faker.name.lastName()
-        var author = {
-            name: name,
-            alias: slug(name + ' ' + i, { lower: true }),
+        var name = faker.name.firstName();
+        var surname = faker.name.lastName()
+        var journalist = {
+            name,
+            surname,
+            alias: slug(name + ' ' + surname + ' ' + i, {
+                lower: true
+            }),
             image: null,
             bio: faker.lorem.paragraphs(20)
         }
 
-        await Author.create(author)
+        await Journalist.create(journalist)
 
     })
 
 }
 
+
+program
+    .command('create-journalists')
+    .action(async () => {
+        createJournalists().then(r => {
+
+        })
+    })
+
+async function createAuthors() {
+    var aus = fs.readFileSync(__dirname + '/authors.json');
+    aus = JSON.parse(aus)
+    await map(aus, async (a, i) => {
+        var author = {
+            name: a.name,
+            surname: a.surname,
+            alias: a.name + ' ' + a.surname + ' ' + i,
+            image: a.image,
+            bio: faker.lorem.sentence(200, 300),
+            bornDate: a.bornDate,
+            deathDate: a.deathDate,
+            ordering: i + 1
+        }
+        await Author.create(author)
+    })
+}
 
 program
     .command('create-authors')
@@ -184,7 +219,7 @@ async function createMediaCategory() {
 async function createMediaRequrce(array, parentId) {
     await map(array, async (mc) => {
         mc.mediacategoryId = parentId
-        var nmc = await MediaCategory.create(mc)
+        var nmc = await Mediacategory.create(mc)
         if (mc.children.length > 0) {
             return createMediaRequrce(mc.children, nmc.id)
         }
@@ -201,137 +236,167 @@ program
     })
 
 
-async function createNewspaperArticles(newspaper) {
+async function createNewspaperarticles(newspaper, debate, figure) {
 
-    var weekProfileCategory = await Category.findOne({ where: { id: 2 } })
-    var debateCategory = await Category.findOne({ where: { id: 1 } })
-    var mediaRecomendationCategory = await Category.findOne({ where: { id: 3 } })
-    var authors = await Author.findAll()
-    var lastKeyAuthor = authors.length - 1
-
-    var movies = [
-        {
-            type: 'local',
-            path: '/movies/mis-woda-brzozowa.mp4'
-        },
-        {
-            type: 'yt',
-            path: '',
-            ytId: 'SLFOunyoMFs'
-        },
-        {
-            type: 'embed',
-            path: '/movies/mis-woda-brzozowa.mp4'
+    var weekProfileCategory = await Category.findOne({
+        where: {
+            id: 2
         }
-    ]
+    })
+    var debateCategory = await Category.findOne({
+        where: {
+            id: 1
+        }
+    })
+    var mediaRecomendationCategory = await Category.findOne({
+        where: {
+            id: 3
+        }
+    })
+    var journalists = await Journalist.findAll()
+    var lastKeyJournalist = journalists.length - 1
 
 
     await map(Array(10).fill(0), async (v, i) => {
 
         var title = faker.lorem.sentence(4, 10)
-        var newspaperArticle = {
+        var newspaperarticle = {
             title,
-            alias: slug(title, { lower: true }) + '-' + i,
-            newspaperArticleType: 'weekProfile',
+            alias: slug(title, {
+                lower: true
+            }) + '-' + i,
+            // newspaperarticleType: 'figure',
             smallDesc: faker.lorem.paragraphs(2),
             longDesc: faker.lorem.paragraphs(20),
-            movie: JSON.stringify(movies[faker.random.number({ min: 0, max: 2 })]),
             attachments: JSON.stringify([])
         }
-        var nnpa = await NewsPaperArticle.create(newspaperArticle)
+        var nnpa = await Newspaperarticle.create(newspaperarticle)
         await newspaper.addNewspaperarticle(nnpa)
-        await authors[faker.random.number({ min: 0, max: lastKeyAuthor })].addNewspaperarticle(nnpa)
-        await weekProfileCategory.addNewspaperarticle(nnpa)
-
+        await journalists[faker.random.number({
+            min: 0,
+            max: lastKeyJournalist
+        })].addNewspaperarticle(nnpa)
+        await weekProfileCategory.addFigure(figure)
+        await figure.addNewspaperarticle(nnpa)
 
     })
 
     await map(Array(10).fill(0), async (v, i) => {
 
         var title = faker.lorem.sentence(4, 10)
-        var newspaperArticle = {
+        var newspaperarticle = {
             title,
-            alias: slug(title, { lower: true }) + '-' + i,
-            newspaperArticleType: 'debate',
+            alias: slug(title, {
+                lower: true
+            }) + '-' + i,
+            // newspaperarticleType: 'debate',
             smallDesc: faker.lorem.paragraphs(2),
             longDesc: faker.lorem.paragraphs(20),
-            movie: JSON.stringify(movies[faker.random.number({ min: 0, max: 2 })]),
             attachments: JSON.stringify([])
         }
-        var nnpa = await NewsPaperArticle.create(newspaperArticle)
+        var nnpa = await Newspaperarticle.create(newspaperarticle)
         await newspaper.addNewspaperarticle(nnpa)
-        await authors[faker.random.number({ min: 0, max: lastKeyAuthor })].addNewspaperarticle(nnpa)
-        await debateCategory.addNewspaperarticle(nnpa)
+        await journalists[faker.random.number({
+            min: 0,
+            max: lastKeyJournalist
+        })].addNewspaperarticle(nnpa)
+        // await debateCategory.addNewspaperarticle(nnpa)
+        await debateCategory.addDebate(debate)
+        await debate.addNewspaperarticle(nnpa)
 
 
     })
 
-    var mcRead = await MediaCategory.findAll({ where: { mediacategoryId: 1 } })
+    var mcRead = await Mediacategory.findAll({
+        where: {
+            mediacategoryId: 1
+        }
+    })
     var lastKeyRead = mcRead.length - 1
     await map(Array(20).fill(0), async (v, i) => {
 
         var keyRandom = faker.random.number(0, lastKeyRead)
         var title = faker.lorem.sentence(4, 10)
-        var newspaperArticle = {
+        var newspaperarticle = {
             title,
-            alias: slug(title, { lower: true }) + '-' + i,
-            newspaperArticleType: 'mediaRecomendation',
+            alias: slug(title, {
+                lower: true
+            }) + '-' + i,
+            // newspaperarticleType: 'mediaRecomendation',
             smallDesc: faker.lorem.paragraphs(2),
             longDesc: faker.lorem.paragraphs(20),
-            movie: JSON.stringify(movies[faker.random.number({ min: 0, max: 2 })]),
             attachments: JSON.stringify([])
         }
-        var nnpa = await NewsPaperArticle.create(newspaperArticle)
+        var nnpa = await Newspaperarticle.create(newspaperarticle)
         await mcRead[keyRandom].addNewspaperarticle(nnpa)
         await newspaper.addNewspaperarticle(nnpa)
-        await authors[faker.random.number({ min: 0, max: lastKeyAuthor })].addNewspaperarticle(nnpa)
+        await journalists[faker.random.number({
+            min: 0,
+            max: lastKeyJournalist
+        })].addNewspaperarticle(nnpa)
         await mediaRecomendationCategory.addNewspaperarticle(nnpa)
 
     })
 
-    var mcWatch = await MediaCategory.findAll({ where: { MediaCategoryId: 2 } })
+    var mcWatch = await Mediacategory.findAll({
+        where: {
+            MediaCategoryId: 2
+        }
+    })
     var lastKeyWatch = mcWatch.length - 1
     await map(Array(20).fill(0), async (v, i) => {
 
         var keyRandom = faker.random.number(0, lastKeyWatch)
         var title = faker.lorem.sentence(4, 10)
-        var newspaperArticle = {
+        var newspaperarticle = {
             title,
-            alias: slug(title, { lower: true }) + '-' + i,
-            newspaperArticleType: 'mediaRecomendation',
+            alias: slug(title, {
+                lower: true
+            }) + '-' + i,
+            // newspaperarticleType: 'mediaRecomendation',
             smallDesc: faker.lorem.paragraphs(2),
             longDesc: faker.lorem.paragraphs(20),
-            movie: JSON.stringify(movies[faker.random.number({ min: 0, max: 2 })]),
             attachments: JSON.stringify([])
         }
-        var nnpa = await NewsPaperArticle.create(newspaperArticle)
+        var nnpa = await Newspaperarticle.create(newspaperarticle)
         await mcWatch[keyRandom].addNewspaperarticle(nnpa)
         await newspaper.addNewspaperarticle(nnpa)
-        await authors[faker.random.number({ min: 0, max: lastKeyAuthor })].addNewspaperarticle(nnpa)
+        await journalists[faker.random.number({
+            min: 0,
+            max: lastKeyJournalist
+        })].addNewspaperarticle(nnpa)
         await mediaRecomendationCategory.addNewspaperarticle(nnpa)
 
     })
 
-    await newspaper.setNewspaperArticle(await NewspaperArticle.findOne({ where: { id: 1 } }))
 
-    var mcListen = await MediaCategory.findAll({ where: { MediaCategoryId: 3 } })
+    var mcListen = await Mediacategory.findAll({
+        where: {
+            MediaCategoryId: 3
+        }
+    })
     var lastKeyListen = mcListen.length - 1
     await map(Array(20).fill(0), async (v, i) => {
 
         var keyRandom = faker.random.number(0, lastKeyListen)
         var title = faker.lorem.sentence(4, 10)
-        var newspaperArticle = {
+        var newspaperarticle = {
             title,
-            alias: slug(title, { lower: true }) + '-' + i,
-            newspaperArticleType: 'mediaRecomendation',
+            alias: slug(title, {
+                lower: true
+            }) + '-' + i,
+            // newspaperarticleType: 'mediaRecomendation',
             smallDesc: faker.lorem.paragraphs(2),
             longDesc: faker.lorem.paragraphs(20),
             attachments: JSON.stringify([])
         }
-        var nnpa = await NewsPaperArticle.create(newspaperArticle)
+        var nnpa = await Newspaperarticle.create(newspaperarticle)
         await mcListen[keyRandom].addNewspaperarticle(nnpa)
         await newspaper.addNewspaperarticle(nnpa)
-        await authors[faker.random.number({ min: 0, max: lastKeyAuthor })].addNewspaperarticle(nnpa)
+        await journalists[faker.random.number({
+            min: 0,
+            max: lastKeyJournalist
+        })].addNewspaperarticle(nnpa)
         await mediaRecomendationCategory.addNewspaperarticle(nnpa)
 
 
@@ -342,6 +407,79 @@ async function createNewspaperArticles(newspaper) {
 }
 
 
+async function createDebates(n) {
+    var date = moment(n.releaseDate)
+    date.add(1, 'h')
+    date = date.format('YYYY-MM-DD HH:mm:ss')
+
+    var title = faker.lorem.sentence(3, 10)
+    var debate = {
+        title,
+        alias: slug(title + '-' + n.id, { lower: true }),
+        image: '',
+        smallDesc: faker.lorem.sentence(30, 50),
+        longDesc: faker.lorem.sentence(10, 300),
+        publishedAt: date
+    }
+
+    var d = await Debate.create(debate)
+    await n.addDebate(d)
+
+    return d
+
+}
+
+async function createFigures(n) {
+
+    var authors = await Author.findAll()
+    var auLastKey = authors.length - 1
+    var journs = await Journalist.findAll()
+    var joLastKey = journs.length - 1
+
+
+    var types = ['author', 'journalist', 'any'];
+    var date = moment(n.releaseDate)
+    date.add(1, 'h')
+    date = date.format('YYYY-MM-DD HH:mm:ss')
+
+    var selectType = types[faker.random.number({ min: 0, max: 2 })]
+
+    var title = faker.lorem.sentence(3, 10)
+    var figure = {
+        title,
+        alias: slug(title + '-' + n.id, { lower: true }),
+        image: '',
+        smallDesc: faker.lorem.sentence(30, 50),
+        longDesc: faker.lorem.sentence(10, 300),
+        figureType: selectType,
+        publishedAt: date
+    }
+
+    var f = await Figure.create(figure)
+
+    switch (selectType) {
+        case 'any':
+
+            break;
+        case 'journalist':
+
+            var jo = journs[faker.random.number({ min: 0, max: joLastKey })]
+            await jo.addFigure(f)
+
+            break;
+
+        case 'author':
+
+            var au = authors[faker.random.number({ min: 0, max: auLastKey })]
+            await au.addFigure(f)
+            break;
+    }
+
+    await n.addFigure(f)
+
+    return f
+
+}
 
 
 async function createNewspaper() {
@@ -351,12 +489,24 @@ async function createNewspaper() {
         start = start.add(7, 'days')
         var newspaper = {
             title: 'Tygodnik ' + (i + 1),
-            alias: slug('Tygodnik ' + (i + 1), { lower: true }),
+            alias: slug('Tygodnik ' + (i + 1), {
+                lower: true
+            }),
             number: i + 1,
             releaseDate: start.format('YYYY-MM-DD')
         }
-        var n = await NewsPaper.create(newspaper)
-        await createNewspaperArticles(n)
+        var n = await Newspaper.create(newspaper)
+        var d = await createDebates(n)
+        var f = await createFigures(n)
+        await n.setCategories(await Category.findAll({
+            where: {
+                categoryViewType: {
+                    [Op.or]: ['debate', 'figure', 'recomendation']
+                }
+            }
+        }))
+        await createNewspaperarticles(n, d, f)
+
     })
 }
 
@@ -370,48 +520,62 @@ program
 
 async function createEpisodes() {
 
-    var categories = await Category.findAll({ where: { categoryViewType: 'program' } })
-    var authors = await Author.findAll()
-    var lastKeyA = authors.length - 1
+    var categories = await Category.findAll({
+        where: {
+            categoryViewType: 'program'
+        }
+    })
+    var journalists = await Journalist.findAll()
+    var lastKeyJ = journalists.length - 1
     var lastKeyC = categories.length - 1
     var start = moment([2019, 5, 3]);
 
-    var movies = [
-        {
-            type: 'local',
-            path: '/movies/mis-woda-brzozowa.mp4'
-        },
-        {
-            type: 'yt',
-            path: '',
-            ytId: 'SLFOunyoMFs'
-        },
-        {
-            type: 'embed',
-            path: '/movies/mis-woda-brzozowa.mp4'
-        }
+    var movies = [{
+        type: 'local',
+        path: '/movies/mis-woda-brzozowa.mp4'
+    },
+    {
+        type: 'yt',
+        path: '',
+        ytId: 'SLFOunyoMFs'
+    },
+    {
+        type: 'embed',
+        path: '/movies/mis-woda-brzozowa.mp4'
+    }
     ]
 
     await map(Array(80).fill(0), async (v, i) => {
 
-        var c = categories[faker.random.number({ min: 0, max: lastKeyC })]
-        var a = authors[faker.random.number({ min: 0, max: lastKeyA })]
+        var c = categories[faker.random.number({
+            min: 0,
+            max: lastKeyC
+        })]
+        var j = journalists[faker.random.number({
+            min: 0,
+            max: lastKeyJ
+        })]
         var ord = i + 1
         var name = faker.lorem.sentence(3, 10)
         start = start.add(1, 'days')
         var eps = {
             name: name,
-            alias: slug(name, { lower: true }),
+            alias: slug(name, {
+                lower: true
+            }),
             image: null,
             smallDesc: faker.lorem.paragraph(2),
             longDesc: faker.lorem.paragraph(10),
-            movie: JSON.stringify(movies[faker.random.number({ min: 0, max: 2 })]),
+            movie: JSON.stringify(movies[faker.random.number({
+                min: 0,
+                max: 2
+            })]),
             ordering: ord,
             releaseDate: start.format('YYYY-MM-DD')
         }
         var epsObj = await Episode.create(eps)
         await c.addEpisode(epsObj)
-        await a.addEpisode(epsObj)
+        await j.addEpisode(epsObj)
 
 
     })
@@ -427,52 +591,53 @@ program
 
 async function createArticles() {
 
-    var cs = await Category.findAll({ where: { categoryViewType: 'kanon_articles' } })
-    var authors = await Author.findAll({})
-    var newspapersArts = await NewsPaperArticle.findAll();
+    var cs = await Category.findAll({
+        where: {
+            categoryViewType: 'kanon_articles'
+        }
+    })
+    var journalists = await Journalist.findAll({})
+    var newspapersArts = await Newspaperarticle.findAll();
     var episodes = await Episode.findAll()
     var lastKey = cs.length - 1
-    var lastKeyAuthor = authors.length - 1
+    var lastKeyJournalist = journalists.length - 1
     var lastKeyNewsPaper = newspapersArts.length - 1
     var lastKeyEpisode = episodes.length - 1;
 
-    var movies = [
-        {
-            type: 'local',
-            path: '/movies/mis-woda-brzozowa.mp4'
-        },
-        {
-            type: 'yt',
-            path: '',
-            ytId: 'SLFOunyoMFs'
-        },
-        {
-            type: 'embed',
-            path: '/movies/mis-woda-brzozowa.mp4'
-        }
-    ]
-
     await map(Array(900).fill(0), async (v, i) => {
 
-        var c = cs[faker.random.number({ nin: 0, max: lastKey })]
-        var au = authors[faker.random.number({ nin: 0, max: lastKeyAuthor })]
-        var nart = newspapersArts[faker.random.number({ nin: 0, max: lastKeyNewsPaper })]
-        var ep = episodes[faker.random.number({ nin: 0, max: lastKeyEpisode })]
+        var c = cs[faker.random.number({
+            nin: 0,
+            max: lastKey
+        })]
+        var j = journalists[faker.random.number({
+            nin: 0,
+            max: lastKeyJournalist
+        })]
+        var nart = newspapersArts[faker.random.number({
+            nin: 0,
+            max: lastKeyNewsPaper
+        })]
+        var ep = episodes[faker.random.number({
+            nin: 0,
+            max: lastKeyEpisode
+        })]
         var title = faker.lorem.sentence(2, 10)
 
         var art = {
             title,
-            alias: slug(title, { lower: true }) + '-' + i,
+            alias: slug(title, {
+                lower: true
+            }) + '-' + i,
             smallDesc: faker.lorem.sentence(30, 50),
             longDesc: faker.lorem.sentence(80, 300),
-            movie: JSON.stringify(movies[faker.random.number({ min: 0, max: 2 })]),
             attachments: JSON.stringify([]),
             ordering: i + 1
         }
 
         var artObj = await Articlecontent.create(art)
         await c.addArticlecontent(artObj)
-        await au.addArticlecontent(artObj)
+        await j.addArticlecontent(artObj)
         await nart.addArticlecontent(artObj)
         await ep.addArticlecontent(artObj)
 
@@ -498,11 +663,16 @@ async function createOpus() {
 
     await map(Array(opusCount).fill(0), async (el, i) => {
 
-        var au = authors[faker.random.number({ min: 0, max: lastAuthorKey })]
+        var au = authors[faker.random.number({
+            min: 0,
+            max: lastAuthorKey
+        })]
         var title = faker.random.words(3)
         var ops = {
             title: title,
-            alias: slug(title, { lower: true }) + '-' + i,
+            alias: slug(title, {
+                lower: true
+            }) + '-' + i,
             description: faker.lorem.sentence(30, 90),
             opusType: 'book'
         }
@@ -520,7 +690,9 @@ async function createOpusSecenerios(opus) {
         var title = faker.random.words(3)
         var sc = {
             title: title,
-            alias: slug(title, { lower: true }) + '-' + i,
+            alias: slug(title, {
+                lower: true
+            }) + '-' + i,
             file: '/lorem.pdf'
         }
 
@@ -532,6 +704,10 @@ async function createOpusSecenerios(opus) {
 }
 
 
+
+
+
+
 program
     .command('create-opus')
     .action(async () => {
@@ -540,19 +716,240 @@ program
         })
     })
 
+async function createNewspaperarticlesAuthors() {
+    var npas = await Newspaperarticle.findAll()
+    var aus = await Author.findAll()
+    var lastAuthorKey = aus.length - 1
+    await map(npas, async (npa, i) => {
+
+        var au = aus[faker.random.number({
+            min: 0,
+            max: lastAuthorKey
+        })]
+        npa.addAuthor(au)
+        if (faker.random.boolean) {
+            var au2 = aus[faker.random.number({
+                min: 0,
+                max: lastAuthorKey
+            })]
+            if (au.id != au2) {
+                npa.addAuthor(au2)
+            }
+        }
+
+
+    })
+}
+
+async function createArticlesAuthors() {
+    var as = await Articlecontent.findAll()
+    var aus = await Author.findAll()
+    var lastAuthorKey = aus.length - 1
+    await map(as, async (a, i) => {
+
+        var au = aus[faker.random.number({
+            min: 0,
+            max: lastAuthorKey
+        })]
+        a.addAuthor(au)
+        if (faker.random.boolean) {
+            var au2 = aus[faker.random.number({
+                min: 0,
+                max: lastAuthorKey
+            })]
+            if (au.id != au2) {
+                a.addAuthor(au2)
+            }
+        }
+
+
+    })
+}
+
+async function createEpisodsAuthors() {
+
+    var eps = await Episode.findAll()
+    var aus = await Author.findAll()
+    var lastAuthorKey = aus.length - 1
+    await map(eps, async (e, i) => {
+
+        var au = aus[faker.random.number({
+            min: 0,
+            max: lastAuthorKey
+        })]
+        e.addAuthor(au)
+        if (faker.random.boolean) {
+            var au2 = aus[faker.random.number({
+                min: 0,
+                max: lastAuthorKey
+            })]
+            if (au.id != au2) {
+                e.addAuthor(au2)
+            }
+        }
+
+
+    })
+
+}
 
 program
-    .command('make-events-index')
+    .command('create-authors-relations')
+    .action(async () => {
+        createNewspaperarticlesAuthors().then(r1 => {
+            createArticlesAuthors().then(r2 => {
+                createEpisodsAuthors().then(r3 = {
+
+                })
+            })
+        })
+    })
+
+
+program
+    .command('make-index-articles')
     .action(() => {
 
-        ElasticSearchRepository.indexAllArticlesse('literacki').then(result => {
-            console.log(result)
-        }).catch(err => {
-            console.log(err)
+        ElasticSearchMappingRepository.makeMappingsFromJson('articles', 'articles_any.json').then(r => {
+            console.log(r)
         })
 
     })
 
+program
+    .command('index-articles-content <offset> <limit>')
+    .action((offset, limit) => {
+        //morfologik
+        ElasticSearchRepository.indexContentArts('articles', { offset: parseInt(offset), limit: parseInt(limit) }).then(r => {
+            console.log(offset, limit)
+        })
+
+
+    })
+
+program
+    .command('index-articles-news <offset> <limit>')
+    .action((offset, limit) => {
+        //morfologik
+
+        ElasticSearchRepository.indexNewsArts('articles', { offset: parseInt(offset), limit: parseInt(limit) }).then(r => {
+            console.log(offset, limit)
+        })
+
+
+    })
+
+
+program
+    .command('make-index-authors')
+    .action(() => {
+
+        ElasticSearchMappingRepository.makeMappingsFromJson('authors', 'authors.json').then(r => {
+            console.log(r)
+        })
+
+    })
+
+program
+    .command('index-authors <offset> <limit>')
+    .action((offset, limit) => {
+        //morfologik
+
+        ElasticSearchRepository.indexAuthors('authors', { offset: parseInt(offset), limit: parseInt(limit) }).then(r => {
+            console.log(offset, limit)
+        })
+
+
+    })
+
+program
+    .command('make-index-journalists')
+    .action(() => {
+
+        ElasticSearchMappingRepository.makeMappingsFromJson('journalists', 'journalists.json').then(r => {
+            console.log(r)
+        })
+
+    })
+
+program
+    .command('index-journalists <offset> <limit>')
+    .action((offset, limit) => {
+        //morfologik
+
+        ElasticSearchRepository.indexAuthors('journalists', { offset: parseInt(offset), limit: parseInt(limit) }).then(r => {
+            console.log(offset, limit)
+        })
+
+
+    })
+
+program
+    .command('make-index-newspapers')
+    .action(() => {
+
+        ElasticSearchMappingRepository.makeMappingsFromJson('newspapers', 'newspapers.json').then(r => {
+            console.log(r)
+        })
+
+    })
+
+
+program
+    .command('index-newspapers <offset> <limit>')
+    .action((offset, limit) => {
+        //morfologik
+
+        ElasticSearchRepository.indexNewspapers('newspapers', { offset: parseInt(offset), limit: parseInt(limit) }).then(r => {
+            console.log(offset, limit)
+        })
+
+
+    })
+
+program
+    .command('make-index-debates')
+    .action(() => {
+
+        ElasticSearchMappingRepository.makeMappingsFromJson('debates', 'debates.json').then(r => {
+            console.log(r)
+        })
+
+    })
+
+program
+    .command('index-debates <offset> <limit>')
+    .action((offset, limit) => {
+        //morfologik
+
+        ElasticSearchRepository.indexDebates('debates', { offset: parseInt(offset), limit: parseInt(limit) }).then(r => {
+            console.log(offset, limit)
+        })
+
+
+    })
+
+program
+    .command('make-index-figures')
+    .action(() => {
+
+        ElasticSearchMappingRepository.makeMappingsFromJson('figures', 'figures.json').then(r => {
+            console.log(r)
+        })
+
+    })
+
+program
+    .command('index-figures <offset> <limit>')
+    .action((offset, limit) => {
+        //morfologik
+
+        ElasticSearchRepository.indexFigures('figures', { offset: parseInt(offset), limit: parseInt(limit) }).then(r => {
+            console.log(offset, limit)
+        })
+
+
+    })
 
 // async function createCategoriesFormJson(json) {
 
@@ -1448,37 +1845,14 @@ program
 //     .command('test')
 //     .action(() => {
 
-//         // ElasticSearchRepository.getEventByIndexId(1).then(d => {
-//         //     console.log(d)
-//         // })
-
-//         // Event.findOne({ where: { id: 4 } }).then(e => {
-//         //     e.getDays({
-//         //         order: [[
-//         //             'daysNumber', 'asc'
-//         //         ]]
-//         //     }).then(ds => {
-//         //         ds.map(d => {
-//         //             console.log(d.daysNumber)
-//         //         })
-//         //     })
-//         // })
-
-//     })
-
-
-// program
-//     .command('make-index')
-//     .action(() => {
-//         //morfologik
-//         ElasticSearchRepository.deleteCreateIndexMapping('wirtur', 'polish').then(result => {
-//             console.log(result)
-//         }).catch(err => {
-//             console.log(err)
+//         Newspaper.findOne({ where: { id: 1 } }).then(n => {
+//             var date = moment(n.releaseDate)
+//             date.add(1, 'h')
+//             console.log(date.format('YYYY-MM-DD HH:mm:ss'))
 //         })
 
-
 //     })
+
 
 
 // program

@@ -1,13 +1,12 @@
 include ../mixins.pug
 doctype html
-html(ng-app="app")
+html()
   head
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
-    title Wirtur
+    title Literacki
     include ../partials/styles.pug
-  body(ng-controller="BodyController")
-    include ../partials/menu.pug
+  body()
     block header
     block content
     block footer

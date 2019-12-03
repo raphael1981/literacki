@@ -3,12 +3,43 @@ node c.js create-sections
 node c.js create-categories
 node c.js create-links
 node c.js create-menus
+node c.js create-journalists
 node c.js create-authors
 node c.js create-media-category
 node c.js create-newspapers
+node c.js create-authors-relations
 node c.js create-episodes
 node c.js create-articles
 node c.js create-opus
 
 
-node ./commands/c.js sync-orm && node ./commands/c.js create-sections && node ./commands/c.js create-categories && node ./commands/c.js create-links && node ./commands/c.js create-menus && node ./commands/c.js create-authors && node ./commands/c.js create-media-category && node ./commands/c.js create-newspapers && node ./commands/c.js create-episodes && node ./commands/c.js create-articles && node ./commands/c.js create-opus
+node c.js make-index-articles
+node c.js index-articles-content 0 100
+node c.js index-articles-news 0 100
+npm run index-contents
+npm run index-newses
+
+
+node c.js make-index-authors
+node c.js index-authors 0 30
+
+node c.js make-index-journalists
+node c.js index-journalists 0 100
+
+node c.js make-index-newspapers
+node c.js index-newspapers 0 100
+
+node c.js make-index-debates
+node c.js index-debates 0 20
+
+node c.js make-index-figures
+node c.js index-figures 0 60
+
+node ./commands/c.js index-articles-content 0 100 && node ./commands/c.js index-articles-content 99 100 && node ./commands/c.js index-articles-content 199 100 && node ./commands/c.js index-articles-content 299 100 && node ./commands/c.js index-articles-content 399 100 && node ./commands/c.js index-articles-content 499 100 && node ./commands/c.js index-articles-content 599 100 && node ./commands/c.js index-articles-content 699 100 && node ./commands/c.js index-articles-content 799 100 && node ./commands/c.js index-articles-content 899 100
+
+node ./commands/c.js index-articles-news 0 100 && node ./commands/c.js index-articles-news 99 100 && node ./commands/c.js index-articles-news 199 100 && node ./commands/c.js index-articles-news 299 100 && node ./commands/c.js index-articles-news 399 100 && node ./commands/c.js index-articles-news 499 100 && node ./commands/c.js index-articles-news 599 100 && node ./commands/c.js index-articles-news 699 100 && node ./commands/c.js index-articles-news 799 100 && node ./commands/c.js index-articles-news 899 100 && node ./commands/c.js index-articles-news 999 100 && node ./commands/c.js index-articles-news 1099 100 && node ./commands/c.js index-articles-news 1199 100
+
+
+
+
+node ./commands/c.js sync-orm && node ./commands/c.js create-sections && node ./commands/c.js create-categories && node ./commands/c.js create-links && node ./commands/c.js create-menus && node ./commands/c.js create-journalists && node c.js create-authors && node ./commands/c.js create-media-category && node ./commands/c.js create-newspapers && node ./commands/c.js create-episodes && node ./commands/c.js create-articles && node ./commands/c.js create-opus && node ./commands/c.js create-authors-relations

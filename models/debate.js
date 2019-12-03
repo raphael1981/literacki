@@ -1,18 +1,20 @@
 const sequelize = require('../config/sequelize')
 const DataTypes = require('sequelize').DataTypes;
 
-const Author = sequelize.define('author', {
-    name: DataTypes.STRING,
-    surname: DataTypes.STRING,
+const Debate = sequelize.define('debate', {
+    title: DataTypes.STRING,
     alias: DataTypes.STRING,
     image: DataTypes.STRING,
-    bio: DataTypes.TEXT,
-    bornDate: DataTypes.DATEONLY,
-    deathDate: DataTypes.DATEONLY,
+    smallDesc: DataTypes.TEXT,
+    longDesc: DataTypes.TEXT,
     params: DataTypes.TEXT,
     ordering: DataTypes.INTEGER,
+    releaseDate: {
+        type: DataTypes.DATEONLY
+    },
+    publishedAt: DataTypes.DATE,
     metaKeywords: DataTypes.TEXT,
     metaDescription: DataTypes.TEXT
 }, {});
 
-module.exports = Author
+module.exports = Debate

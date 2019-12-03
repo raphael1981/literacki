@@ -1,0 +1,126 @@
+{
+    "figid": {
+        "type": "integer"
+    },
+    "title": {
+        "type": "text"
+    },
+    "alias": {
+        "type": "text"
+    },
+    "image": {
+        "type": "text"
+    },
+    "smallDesc": {
+        "type": "text"
+    },
+    "longDesc": {
+        "type": "text"
+    },
+    "releaseDate": {
+        "type": "date"
+    },
+    "publishedAt": {
+        "type": "date"
+    },
+    "metaDescription": {
+        "type": "text"
+    },
+    "metaKeywords": {
+        "type": "text"
+    },
+    "newspaperArticles": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "figureType": {
+                "type": "text"
+            },
+            "journalists": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "text"
+                    },
+                    "surname": {
+                        "type": "text"
+                    },
+                    "alias": {
+                        "type": "text"
+                    },
+                    "image": {
+                        "type": "text"
+                    }
+                }
+            }
+        }
+    },
+    "authors": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text"
+            },
+            "surname": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "bornDate": {
+                "type": "date"
+            },
+            "deathDate": {
+                "type": "date"
+            },
+            "image": {
+                "type": "text"
+            },
+            "bio": {
+                "type": "text"
+            }
+        }
+    },
+    "journalists": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text"
+            },
+            "surname": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "bio": {
+                "type": "text"
+            }
+        }
+    }
+}

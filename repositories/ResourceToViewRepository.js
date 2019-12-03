@@ -1,26 +1,36 @@
-var Link = require('../models/index').Link;
-var Content = require('../models/index').Content;
-var Gallery = require('../models/index').Gallery;
-var Category = require('../models/index').Category;
-var Region = require('../models/index').Region;
-var City = require('../models/index').City;
-var Theme = require('../models/index').Theme;
-var Event = require('../models/index').Event;
-var Age = require('../models/index').Age;
-var Attraction = require('../models/index').Attraction
-var Catalog = require('../models/index').Catalog;
-var Article = require('../models/index').Article;
-var Slide = require('../models/index').Slide;
-var HomePage = require('../models/index').HomePage;
-var Partner = require('../models/index').Partner;
+const ElasticAdvancedSearchRepository = require('./ElasticAdvancedSearchRepository')
+const ElasticSearchHelper = require('../helpers/elastic-search-helper')
+const ElasticSearchHelperFiguresRepository = require('./ElasticSearchFiguresRepository')
+const Link = require('../models/index').Link;
+const Articlecontent = require('../models/index').Articlecontent
+const Newspaperarticle = require('../models/index').Newspaperarticle
+const Newspaper = require('../models/index').Newspaper
+const Category = require('../models/index').Category
+const Author = require('../models/index').Author
+const Journalist = require('../models/index').Journalist
+const Mediacategory = require('../models/index').Mediacategory
+const Mediaresource = require('../models/index').Mediaresource
+const Episode = require('../models/index').Episode
+const Opus = require('../models/index').Opus
+const Scenerio = require('../models/index').Scenerio
+const Event = require('../models/index').Event
+const Debate = require('../models/index').Debate
+const Figure = require('../models/index').Figure
 var limit = require('../config/limit')
-const Sequelize = require('sequelize')
-const ElasticSearchRepository = require('./ElasticSearchRepository')
-const Op = Sequelize.Op;
+const {
+    Client
+} = require('@elastic/elasticsearch')
+const esPort = require('../config/es-port')
+const client = new Client({
+    node: 'http://localhost:' + esPort
+})
 const {
     map
 } = require('p-iteration');
 var moment = require('moment');
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
+const fs = require('fs')
 
 class ResourceToViewRepository {
 
@@ -34,54 +44,6 @@ class ResourceToViewRepository {
 
                 break;
 
-            case 'gallery':
-
-                return d.data;
-
-                break;
-
-            case 'galleries':
-
-                return d.data;
-
-                break;
-
-            case 'events':
-
-                return d.data;
-
-                break;
-
-            case 'event':
-
-                return d.data;
-
-                break;
-
-            case 'articles':
-
-                return d.data;
-
-                break;
-
-            case 'article':
-
-                return d.data;
-
-                break;
-
-            case 'catalog':
-
-                return d.data;
-
-                break;
-
-
-            case 'category':
-
-                return d.data;
-
-                break;
 
         }
     }
@@ -89,269 +51,59 @@ class ResourceToViewRepository {
 
     async withLinkResource(l, q) {
 
+
         switch (l.dataType) {
 
-            case 'category':
+            case 'section_newspaper':
 
-                if (l.categoryId != null) {
+                break;
+            case 'category_debate':
 
-                    var offset = 0;
-                    if (q.page && q.page != 1) {
-                        offset = (q.page - 1) * limit.eventsLimit;
-                    }
+                break;
+            case 'category_figure':
 
-
-                    var d = await Article.findAndCountAll({
-                        where: {
-                            categoryId: l.categoryId
-                        },
-                        offset,
-                        limit: limit.articlesLimit,
-
-                        include: [
-                            {
-                                model: Category,
-                                as: 'category'
-                            }
-                        ],
-
-                        // order: [
-                        //     ['publishedAt', 'DESC']
-                        // ],
-                        distinct: true
-                    })
-
-                    return {
-                        data: d,
-                        category: await l.getCategory(),
-                        offset,
-                        limit: limit.articlesLimit
-                    };
-
-                } else {
-                    return null;
+                var data = await ElasticSearchHelperFiguresRepository.findCurrentFigure()
+                if (data) {
+                    return data
                 }
 
                 break;
-
-            case 'catalog':
-
-
-                // var offset = 0;
-                // if (q.page && q.page != 1) {
-                //     offset = (q.page - 1) * limit.eventsLimit;
-                // }
-
-
-                // var d = await Event.findAndCountAll({
-                //     where: {
-                //         eventSezonType: {
-                //             [Op.not]: ['winter', 'summer']
-                //         },
-                //         eventType: 'template',
-                //         catalogId: l.catalogId
-                //     },
-                //     // order: Sequelize.literal('startAt DESC'),
-                //     offset: offset,
-                //     limit: limit.eventsLimit,
-                //     include: [
-                //         {
-                //             model: Region,
-                //             as: 'Regions'
-                //         },
-                //         {
-                //             model: Age,
-                //             as: 'Ages'
-                //         }
-                //     ],
-                //     distinct: true
-                // })
-
-
-
-                return {
-                    // events: d,
-                    // offset: offset,
-                    // limit: limit.eventsLimit,
-                    catalog: await l.getCatalog()
-                };
+            case 'category_recomendations':
 
                 break;
-
-            case 'article':
-
-                // if (l.content_id != null) {
-
-                //     var cnt = await Content.find({
-                //         id: l.content_id
-                //     }).findAsync();
-
-                //     var galleries = await Gallery.find({
-                //         content_id: l.content_id
-                //     }).order('published_at').findAsync();
-
-                //     cnt[0].galleries = galleries;
-
-                //     if (cnt[0].category_id != null) {
-                //         cnt[0].category = await Category.getAsync(cnt[0].category_id);
-                //     }
-
-                //     return cnt[0];
-                // } else {
-                //     return null;
-                // }
+            case 'section_program':
 
                 break;
-
-            case 'articles':
-
-                if (l.categoryId) {
-                    var arts = await Article.findAll({
-                        where: {
-                            categoryId: l.categoryId
-                        },
-                        order: [
-                            ['ordering', 'asc']
-                        ]
-                    })
-
-                    return { articles: arts, category: await l.getCategory() };
-
-                }
-
-                return null
-
+            case 'category_program':
 
                 break;
-
-            case 'galleries':
-
-
-                var d;
-
-
-                return d;
+            case 'section_kanon':
 
                 break;
-
-
-            case 'events':
-
-                if (l.catalogId) {
-
-                    var all = false;
-                    if (q.hasOwnProperty('all')) {
-                        all = true;
-                    }
-
-                    var iEvents = await ElasticSearchRepository.searchCatalogIndexByType(l.eventsType, l.catalogId, all, 0, 100, 'wirtur')
-
-
-                    // var where = {
-                    //     catalogId: l.catalogId,
-                    //     eventSezonType: l.eventsType,
-                    //     status: {
-                    //         [Op.not]: ['arch']
-                    //     }
-                    // }
-
-                    // if (!q.hasOwnProperty('all')) {
-                    //     where.startAt = { [Op.gt]: new Date() }
-                    // }
-
-                    // var ev = await Event.findAll({
-                    //     where,
-                    //     order: Sequelize.literal('startAt ASC'),
-                    //     include: [
-                    //         {
-                    //             model: Region,
-                    //             as: 'Regions'
-                    //         },
-                    //         {
-                    //             model: Age,
-                    //             as: 'Ages'
-                    //         }
-                    //     ]
-                    // })
-
-
-
-                    // if (ev) {
-                    //     return { events: ev, catalog: await l.getCatalog() };
-                    // }
-
-
-                    return { events: iEvents, catalog: await l.getCatalog() };
-
-
-
-
-                } else {
-                    return null;
-                }
-                break;
-
-
-            case 'blank':
-
+            case 'category_intro':
 
                 break;
+            case 'category_articles_series':
 
+                break;
+            case 'category_articles_single':
+
+                break;
+            case 'category_authors':
+
+                break;
+            case 'category_scenerio_index':
+
+                break;
+            case 'category_events':
+
+                break;
+            case 'custom_view':
+
+                break;
 
         }
-    }
 
-    static makeSelfLink(alias, linkAlias) {
-        return '/' + linkAlias + '/' + alias;
-    }
-
-
-    async homeDataGet() {
-        var homeData = {};
-        homeData.slides = await Slide.findAll({
-            where: {
-                status: 1
-            },
-            order: [
-                ['ordering', 'ASC']
-            ]
-        })
-
-        homeData.boxes = await HomePage.findAll({
-            where: {},
-            order: [
-                ['ordering', 'ASC']
-            ]
-        })
-
-        homeData.homeArticle = await Article.findOne({
-            where: {
-                onHome: 1
-            },
-            include: [
-                {
-                    model: Category,
-                    as: 'category'
-                }
-            ]
-        })
-
-        homeData.currentCatalog = await Catalog.findOne({
-            where: {
-                current: true
-            }
-        })
-
-
-        homeData.partners = await Partner.findAll({
-            order: [
-                ['ordering', 'asc']
-            ]
-        })
-
-
-
-        return homeData;
     }
 
 

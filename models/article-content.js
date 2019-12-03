@@ -16,12 +16,15 @@ const Articlecontent = sequelize.define('articlecontent', {
   attachments: {
     type: DataTypes.TEXT
   },
-  movie: {
-    type: DataTypes.TEXT
+  onHome: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
   },
-  onHome: { type: DataTypes.BOOLEAN, defaultValue: false },
   metaDescription: DataTypes.TEXT,
   metaKeywords: DataTypes.TEXT,
+  attachments: {
+    type: DataTypes.TEXT
+  },
   publishedAt: {
     type: DataTypes.DATE,
     defaultValue: Sequelize.NOW,

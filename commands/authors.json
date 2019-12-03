@@ -1,0 +1,79 @@
+[
+    {
+        "name": "Stanisław",
+        "surname": "Lem",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    },
+    {
+        "name": "Witold",
+        "surname": "Gombrowicz",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    },
+    {
+        "name": "Sławomir",
+        "surname": "Mrożek",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    },
+    {
+        "name": "Julian",
+        "surname": "Tuwim",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    },
+    {
+        "name": "Marek",
+        "surname": "Hłasko",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    },
+    {
+        "name": "Ryszard",
+        "surname": "Kapuściński",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    },
+    {
+        "name": "Zbigniew",
+        "surname": "Herbert",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    },
+    {
+        "name": "Jan",
+        "surname": "Brzechwa",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    },
+    {
+        "name": "Edward",
+        "surname": "Stachura",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    },
+    {
+        "name": "Konstanty Ildefons",
+        "surname": "Gałczyński",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    },
+    {
+        "name": "Stefan",
+        "surname": "Kisielewski",
+        "image": "/images/author.jpg",
+        "bornDate": "1921-10-12",
+        "deathDate": "2006-03-27"
+    }
+]

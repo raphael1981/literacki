@@ -1,26 +1,38 @@
-var Link = require('../models/index').Link;
-var Articlecontent = require('../models/index').Articlecontent;
-var Gallery = require('../models/index').Gallery;
-var Event = require('../models/index').Event;
+const ElasticAdvancedSearchRepository = require('./ElasticAdvancedSearchRepository')
+const ElasticSearchHelper = require('../helpers/elastic-search-helper')
+const Link = require('../models/index').Link;
+const Articlecontent = require('../models/index').Articlecontent
+const Newspaperarticle = require('../models/index').Newspaperarticle
+const Newspaper = require('../models/index').Newspaper
+const Category = require('../models/index').Category
+const Author = require('../models/index').Author
+const Journalist = require('../models/index').Journalist
+const Mediacategory = require('../models/index').Mediacategory
+const Mediaresource = require('../models/index').Mediaresource
+const Episode = require('../models/index').Episode
+const Opus = require('../models/index').Opus
+const Scenerio = require('../models/index').Scenerio
+const Event = require('../models/index').Event
+const Debate = require('../models/index').Debate
+const Figure = require('../models/index').Figure
 var limit = require('../config/limit')
-const Sequelize = require('sequelize')
-const ElasticSearchRepository = require('./ElasticSearchRepository')
-const Op = Sequelize.Op;
+const {
+    Client
+} = require('@elastic/elasticsearch')
+const esPort = require('../config/es-port')
+const client = new Client({
+    node: 'http://localhost:' + esPort
+})
 const {
     map
 } = require('p-iteration');
 var moment = require('moment');
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
+const fs = require('fs')
 
 class UrlResourcesSearchRepository {
 
-    static paramsToString(params) {
-        var str = '';
-        Object.keys(params).forEach((k, i) => {
-            if (params[k] != undefined)
-                str += params[k] + "/";
-        })
-        return str.slice(0, -1);
-    }
 
     async parseUrlStart(path, countP, params, query) {
 
@@ -47,6 +59,19 @@ class UrlResourcesSearchRepository {
             return b;
         }
 
+
+        var c = await this.parseThirdArgument(path, countP, params, query);
+
+        if (c) {
+            return c;
+        }
+
+        var d = await this.parseFourthArgument(path, countP, params, query);
+
+        if (d) {
+            return d;
+        }
+
         return null;
 
     }
@@ -55,140 +80,6 @@ class UrlResourcesSearchRepository {
 
     async parseFirstArgument(path, countP, params, query) {
 
-        if (countP == 1) {
-
-            var catalog = await Catalog.findOne({
-                where: { alias: params.a },
-            });
-
-
-            // if (catalog) {
-
-            //     var offset = 0;
-
-            //     if (query.page && query.page != 1) {
-            //         offset = (query.page - 1) * limit.eventsLimit;
-            //     }
-
-
-            //     var d = await Event.findAndCountAll({
-            //         where: {
-            //             eventSezonType: {
-            //                 [Op.not]: ['winter', 'summer']
-            //             },
-            //             catalogId: catalog.id
-            //         },
-            //         offset: offset,
-            //         limit: limit.eventsLimit,
-            //         include: [
-            //             {
-            //                 model: Region,
-            //                 as: 'Regions'
-            //             },
-            //             {
-            //                 model: Age,
-            //                 as: 'Ages'
-            //             },
-            //         ],
-            //         distinct: true
-            //     })
-
-
-            return {
-                searchFor: 'catalog',
-                dataType: 'catalog',
-                data: {
-                    catalog: catalog,
-                    // offset: offset,
-                    // limit: limit.articlesLimit,
-                    // events: d
-                }
-            }
-
-
-
-
-            // }
-
-
-            var cat = await Category.findOne({
-                where: {
-                    alias: params.a
-                },
-                // attributes: {
-                //     include: [[Sequelize.fn("COUNT", Sequelize.col("articles.id")), "articlesCount"]]
-                // },
-                // include: [{
-                //     model: Article, attributes: []
-                // }]
-            })
-
-
-            if (cat) {
-
-                var articles = await Article.findAndCountAll({
-                    where: {
-                        categoryId: cat.id
-                    },
-                    offset: 0,
-                    limit: limit.articlesLimit,
-                    order: [
-                        ['publishedAt', 'DESC']
-                    ],
-                })
-
-                return {
-                    searchFor: 'category',
-                    dataType: 'catgory',
-                    data: {
-                        category: cat,
-                        offset: 0,
-                        limit: limit.articlesLimit,
-                        data: articles
-                    }
-                };
-
-            }
-
-
-            var art = await Article.findOne({ where: { alias: params.a } })
-
-            if (art) {
-                return {
-                    searchFor: 'article',
-                    dataType: 'article',
-                    data: art
-                }
-            }
-
-
-            var ev = await Event.findOne({
-                where: {
-                    alias: params.a
-                }
-            })
-
-
-            if (ev) {
-
-                var event = await ElasticSearchRepository.getEventByIndexId(ev.id)
-
-                if (ev) {
-                    return {
-                        searchFor: 'event',
-                        dataType: 'event',
-                        data: { event: event._source, ev }
-                    }
-                }
-
-            }
-
-
-            return null;
-
-
-        }
-
         return null;
 
     }
@@ -196,189 +87,21 @@ class UrlResourcesSearchRepository {
 
 
     async parseSecondArgument(path, countP, params, query) {
-        if (countP == 2) {
+
+        return null;
+
+    }
 
 
-            var l = await Link.findOne({
-                where: { path: params.a, status: 1 }
-            })
-
-            if (l) {
-
-                switch (l.dataType) {
+    async parseThirdArgument(path, countP, params, query) {
 
 
-                    case 'articles':
+        return null;
 
-                        if (l.categoryId) {
-
-                            var art = await Article.findOne({
-                                where: {
-                                    alias: params.b,
-                                    categoryId: l.categoryId
-                                }
-                            })
+    }
 
 
-                            if (art) {
-                                return {
-                                    searchFor: 'article',
-                                    dataType: 'article',
-                                    data: art
-                                }
-                            }
-                        }
-
-                        break;
-
-
-                    case 'galleries':
-
-
-                        var gal = await Gallery.findOne({
-                            where: {
-                                alias: params.b
-                            }
-                        })
-
-
-                        if (gal) {
-                            return {
-                                searchFor: 'gallery',
-                                dataType: 'gallery',
-                                data: gal
-                            }
-                        }
-
-                        break;
-
-                    case 'events':
-
-                        if (l.catalogId) {
-
-                            var ev = await Event.findOne({
-                                where: {
-                                    alias: params.b,
-                                    catalogId: l.catalogId
-                                }
-                            })
-
-                            var ev = await Event.findOne({
-                                where: {
-                                    alias: params.b,
-                                    catalogId: l.catalogId
-                                }
-                            })
-
-                            var event = await ElasticSearchRepository.getEventByIndexId(ev.id)
-
-                            if (ev) {
-                                return {
-                                    searchFor: 'event',
-                                    dataType: 'event',
-                                    data: { event: event._source, ev }
-                                }
-                            }
-
-                        }
-
-                        break;
-
-                    case 'catalog':
-
-
-                        if (l.catalogId) {
-
-                            var ev = await Event.findOne({
-                                where: {
-                                    alias: params.b,
-                                    catalogId: l.catalogId
-                                }
-                            })
-
-
-
-                            if (ev) {
-                                var event = await ElasticSearchRepository.getEventByIndexId(ev.id)
-                                return {
-                                    searchFor: 'event',
-                                    dataType: 'event',
-                                    data: { event: event._source, ev }
-                                }
-                            }
-
-                        }
-
-                        break;
-
-                }
-
-            }
-
-            var cat = await Category.findOne({
-                where: {
-                    alias: params.a
-                }
-            })
-
-            if (cat) {
-
-                var art = await Article.findOne({
-                    where: {
-                        alias: params.b,
-                        categoryId: cat.id
-                    }
-                })
-
-
-                if (art) {
-                    return {
-                        searchFor: 'article',
-                        dataType: 'article',
-                        data: art
-                    }
-                }
-
-            }
-
-            var catalog = await Catalog.findOne({
-                where: {
-                    alias: params.a
-                }
-            })
-
-            if (catalog) {
-
-                // console.log(catalog)
-
-                var ev = await Event.findOne({
-                    where: {
-                        alias: params.b,
-                        catalogId: catalog.id
-                    }
-                })
-
-                if (ev) {
-
-                    var event = await ElasticSearchRepository.getEventByIndexId(ev.id)
-
-
-                    if (ev) {
-                        return {
-                            searchFor: 'event',
-                            dataType: 'event',
-                            data: { event: event._source, ev }
-                        }
-                    }
-
-                }
-
-            }
-
-            return null;
-
-
-        }
+    async parseFourthArgument(path, countP, params, query) {
 
         return null;
 

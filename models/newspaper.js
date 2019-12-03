@@ -3,7 +3,7 @@ const DataTypes = require('sequelize').DataTypes;
 const Sequelize = require('sequelize')
 
 
-const NewsPaper = sequelize.define('newspaper', {
+const Newspaper = sequelize.define('newspaper', {
     title: DataTypes.STRING(255),
     alias: {
         type: DataTypes.STRING(255),
@@ -26,4 +26,4 @@ const NewsPaper = sequelize.define('newspaper', {
     }
 }, {});
 
-module.exports = NewsPaper
+module.exports = Newspaper

@@ -11,7 +11,7 @@ const Category = sequelize.define('category', {
     values: [
       'none',
       'debate',
-      'week_profile',
+      'figure',
       'recomendation',
       'program',
       'kanon_articles',

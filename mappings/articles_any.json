@@ -6,19 +6,22 @@
         "type": "text"
     },
     "title": {
-        "type": "keyword"
+        "type": "text"
     },
     "image": {
-        "type": "keyword"
+        "type": "text"
     },
     "smallDesc": {
-        "type": "keyword"
+        "type": "text"
     },
     "longDesc": {
-        "type": "keyword"
+        "type": "text"
     },
     "content": {
         "type": "text"
+    },
+    "onHome": {
+        "type": "boolean"
     },
     "metaDescription": {
         "type": "text"
@@ -26,7 +29,335 @@
     "metaKeywords": {
         "type": "text"
     },
-    "date": {
+    "publishedAt": {
         "type": "date"
+    },
+    "attachments": {
+        "properties": {
+            "file": {
+                "type": "text"
+            }
+        }
+    },
+    "authors": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text"
+            },
+            "surname": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "bornDate": {
+                "type": "date"
+            },
+            "deathDate": {
+                "type": "date"
+            },
+            "image": {
+                "type": "text"
+            },
+            "bio": {
+                "type": "text"
+            }
+        }
+    },
+    "journalists": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text"
+            },
+            "surname": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "bio": {
+                "type": "text"
+            }
+        }
+    },
+    "newspaperArticles": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "journalists": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "text"
+                    },
+                    "surname": {
+                        "type": "text"
+                    },
+                    "alias": {
+                        "type": "text"
+                    },
+                    "image": {
+                        "type": "text"
+                    }
+                }
+            }
+        }
+    },
+    "articleContents": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "journalists": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "text"
+                    },
+                    "surname": {
+                        "type": "text"
+                    },
+                    "alias": {
+                        "type": "text"
+                    },
+                    "image": {
+                        "type": "text"
+                    }
+                }
+            }
+        }
+    },
+    "categories": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "path": {
+                "type": "text"
+            },
+            "categoryViewType": {
+                "type": "text"
+            },
+            "intro": {
+                "type": "text"
+            }
+        }
+    },
+    "mediaresources": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "dataJson": {
+                "type": "text"
+            }
+        }
+    },
+    "mediacategories": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            }
+        }
+    },
+    "opuses": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "opusType": {
+                "type": "text"
+            }
+        }
+    },
+    "galleries": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "galleryImages": {
+                "type": "text"
+            }
+        }
+    },
+    "episodes": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "movie": {
+                "type": "text"
+            },
+            "releaseDate": {
+                "type": "date"
+            }
+        }
+    },
+    "debates": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "publishedAt": {
+                "type": "date"
+            }
+        }
+    },
+    "figures": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "figureType": {
+                "type": "text"
+            },
+            "publishedAt": {
+                "type": "date"
+            }
+        }
+    },
+    "historicalevents": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "fromDate": {
+                "type": "date"
+            },
+            "toDate": {
+                "type": "date"
+            }
+        }
     }
 }

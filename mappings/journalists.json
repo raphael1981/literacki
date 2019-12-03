@@ -1,0 +1,126 @@
+{
+    "jid": {
+        "type": "integer"
+    },
+    "title": {
+        "type": "text"
+    },
+    "alias": {
+        "type": "text"
+    },
+    "image": {
+        "type": "text"
+    },
+    "number": {
+        "type": "text"
+    },
+    "metaDescription": {
+        "type": "text"
+    },
+    "metaKeywords": {
+        "type": "text"
+    },
+    "releaseDate": {
+        "type": "date"
+    },
+    "publishedAt": {
+        "type": "date"
+    },
+    "newspaperArticles": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            }
+        }
+    },
+    "articleContents": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            }
+        }
+    },
+    "debates": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "publishedAt": {
+                "type": "date"
+            }
+        }
+    },
+    "figure": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "figureType": {
+                "type": "text"
+            },
+            "publishedAt": {
+                "type": "date"
+            }
+        }
+    }
+}

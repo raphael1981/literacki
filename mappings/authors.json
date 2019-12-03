@@ -1,0 +1,148 @@
+{
+    "auid": {
+        "type": "integer"
+    },
+    "name": {
+        "type": "text"
+    },
+    "surname": {
+        "type": "text"
+    },
+    "alias": {
+        "type": "text"
+    },
+    "image": {
+        "type": "text"
+    },
+    "bio": {
+        "type": "text"
+    },
+    "bornDate": {
+        "type": "date"
+    },
+    "deathDate": {
+        "type": "date"
+    },
+    "metaDescription": {
+        "type": "text"
+    },
+    "metaKeywords": {
+        "type": "text"
+    },
+    "opuses": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "opusType": {
+                "type": "text"
+            }
+        }
+    },
+    "episodes": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "movie": {
+                "type": "text"
+            },
+            "releaseDate": {
+                "type": "date"
+            }
+        }
+    },
+    "newspaperArticles": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            }
+        }
+    },
+    "articleContents": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            }
+        }
+    },
+    "figure": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title": {
+                "type": "text"
+            },
+            "alias": {
+                "type": "text"
+            },
+            "image": {
+                "type": "text"
+            },
+            "smallDesc": {
+                "type": "text"
+            },
+            "longDesc": {
+                "type": "text"
+            },
+            "figureType": {
+                "type": "text"
+            },
+            "publishedAt": {
+                "type": "date"
+            }
+        }
+    }
+}
